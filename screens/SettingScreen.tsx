@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const App: React.FC = () => {
+const SettingScreen: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Hello, FikaApp!</Text>
+      <Text style={styles.title}>Settings</Text>
     </View>
   );
 };
@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5fcff',
+    backgroundColor: '#f5f5f5',
   },
-  text: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
 });
 
-export default App;
+export default SettingScreen;
