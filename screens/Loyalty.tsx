@@ -7,19 +7,17 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-// import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Loyalty = () => {
   return (
     <ScrollView style={styles.container}>
       {/* Loyalty Card */}
       <View style={styles.loyaltyCard}>
-        <View style={styles.cardHolder}>
-          <Image
-            style={styles.qrCode}
-            source={require('../assets/image/qrcode.png')} // Replace with your QR code image
-          />
-        </View>
+        <Image
+          style={styles.qrCode}
+          source={{uri: 'https://via.placeholder.com/150'}} // Replace with your QR code image
+        />
         <Text style={styles.tapToScan}>Tap to scan</Text>
         <View style={styles.pointsContainer}>
           <Text style={styles.pointsText}>60 POINTS</Text>
@@ -32,7 +30,7 @@ const Loyalty = () => {
       <View style={styles.rewardItem}>
         <Image
           style={styles.rewardImage}
-          source={{ uri: 'https://via.placeholder.com/50' }} // Replace with your drink image
+          source={{uri: 'https://via.placeholder.com/50'}} // Replace with your drink image
         />
         <View style={styles.rewardDetails}>
           <Text style={styles.rewardText}>Hydrate Station</Text>
@@ -44,7 +42,7 @@ const Loyalty = () => {
       <View style={styles.rewardItem}>
         <Image
           style={styles.rewardImage}
-          source={{ uri: 'https://via.placeholder.com/50' }} // Replace with your drink image
+          source={{uri: 'https://via.placeholder.com/50'}} // Replace with your drink image
         />
         <View style={styles.rewardDetails}>
           <Text style={styles.rewardText}>Bubble Tea</Text>
@@ -64,7 +62,7 @@ const Loyalty = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0F0F0',
+    backgroundColor: '#fff',
     paddingHorizontal: 20,
   },
   header: {
@@ -88,12 +86,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 20,
     marginTop: 20,
-    alignItems: 'center',
-  },
-  cardHolder: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 10,
     alignItems: 'center',
   },
   qrCode: {
@@ -128,10 +120,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 20,
-    gap: 10,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 15,
   },
   rewardImage: {
     width: 50,
