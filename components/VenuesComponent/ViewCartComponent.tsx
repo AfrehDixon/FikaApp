@@ -24,15 +24,6 @@ const ViewCartComponent = ({ navigation }) => {
                 translucent={true}
             />
 
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icon name="chevron-back" size={24} color="white" />
-                </TouchableOpacity>
-                <View>
-                    <Text style={styles.headerTitle}>THE FIKA TEAHOUSE - EAST LEGON</Text>
-                    <Text style={styles.headerSubtitle}>12 Tripoli Street, Accra</Text>
-                </View>
-            </View>
 
             <ScrollView style={styles.content}>
                 <View style={styles.section}>
@@ -79,7 +70,7 @@ const ViewCartComponent = ({ navigation }) => {
             </ScrollView>
 
             <View style={styles.cart}>
-                <TouchableOpacity style={styles.cartCard}>
+                <TouchableOpacity style={styles.cartCard} onPress={()=> navigation.navigate('Checkout')}>
                     <Text style={styles.cartDetails}>2</Text>
                     <Text style={styles.cartDetails}>View Cart</Text>
                     <Text style={styles.cartDetails}>GHC 30</Text>

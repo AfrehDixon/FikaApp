@@ -6,6 +6,7 @@ import { SettingScreen } from './screens/SettingScreen';
 import Loyalty from './screens/Loyalty';
 import { RouteProp } from '@react-navigation/native';
 import { HomeScreen } from './screens/HomeScreen';
+import { View } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,16 +55,16 @@ export default function Tabnavigation() {
         
       })}
     >
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+      <Tab.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}} />
       <Tab.Screen name="Tickets" component={Loyalty} />
       <Tab.Screen
   name="Setting"
   component={SettingScreen}
   options={{ 
-    tabBarLabel: 'Profile', 
     headerTitle: 'Profile',
     headerTintColor: '#F0F0F0',
-    headerTitleStyle: { fontWeight: 'bold'  , color: '#000000'},
+    headerTitleStyle: { fontWeight: 'bold', color: '#000000' },
+
   }}
 />
 

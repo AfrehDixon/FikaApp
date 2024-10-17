@@ -1,34 +1,84 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
-
-export function HomeScreen() { 
+export function HomeScreen() {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <StatusBar hidden={true} />
-        {/* Header with image */}
-        <View style={styles.header}>
-          <Image
-            source={require('../assets/image/chocolate.png')} // Add the URL for your header image here
-            style={styles.headerImage}
-            resizeMode="cover"
-          />
+        <View style={{backgroundColor: '#5E3A16'}}>
+          <View
+            style={{
+              width: 80,
+              height: 80,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 50,
+              alignSelf: 'center',
+              marginTop: 40,
+              
+              // Half the width and height to make it circular
+            }}>
+            <Image
+              source={require('../assets/image/fika5.png')} // Path to your image
+              style={{
+                width: 80, // Slightly smaller than the container to show the red background as a border
+                height: 80,
+                borderRadius: 45, // Half of the width/height to make the image circular
+                // borderWidth: 5, // Adds a border around the image
+                borderColor: 'white',
+                alignSelf: 'center ', // Border color (you can change it if needed)
+              }}
+              resizeMode="cover" // Ensures the image covers the entire circle
+            />
+          </View>
+
+          <View style={styles.banner}>
+            <Image
+              source={require('../assets/image/fikabanner.png')} // Example banner image
+              style={styles.bannerLogo}
+            />
+            <View style={styles.bannerText}>
+              <Text
+                style={{
+                  color: '#a96822',
+                  paddingLeft: 15,
+                  fontSize: 18,
+                  paddingVertical: 15,
+                }}>
+                Buy Gifts Cards now
+              </Text>
+              <Icon
+                name="arrow-forward"
+                size={24}
+                style={{
+                  color: '#a96822',
+                  paddingRight: 15,
+                  fontSize: 18,
+                  paddingVertical: 15,
+                }}
+              />
+            </View>
+          </View>
         </View>
-
-        {/* Promotion Section */}
-        <TouchableOpacity style={styles.promoContainer}>
-          <Text style={styles.promoText}>Buy Gift Cards now!</Text>
-        </TouchableOpacity>
-
         {/* Buttons for Refer and QR code */}
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.iconButton}>
-            <Icon name="people-outline" size={24} color="#FFF" />
+            
             <Text style={styles.iconButtonText}>Refer a friend</Text>
+            <Icon name="people-outline" size={24} color="#FFF" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
             <Icon name="qr-code-outline" size={24} color="#FFF" />
@@ -40,13 +90,19 @@ export function HomeScreen() {
         <View style={styles.venueListContainer}>
           <Text style={styles.venueHeader}>Select Venue</Text>
 
-          <TouchableOpacity style={styles.venueCard} onPress={() => navigation.navigate('VenueDetails')}>
-            <Text style={styles.venueName}>The Fika Teahouse - East Location</Text>
+          <TouchableOpacity
+            style={styles.venueCard}
+            onPress={() => navigation.navigate('VenueDetails')}>
+            <Text style={styles.venueName}>
+              The Fika Teahouse - East Location
+            </Text>
             <Text style={styles.venueAddress}>12 Tripoli St, Accra</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.venueCard}>
-            <Text style={styles.venueName}>The Fika Teahouse - South Labadi</Text>
+            <Text style={styles.venueName}>
+              The Fika Teahouse - South Labadi
+            </Text>
             <Text style={styles.venueAddress}>Jomo S Ln, Accra</Text>
           </TouchableOpacity>
         </View>
@@ -58,15 +114,41 @@ export function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#F0F0F0',
+    justifyContent: 'center',
   },
   header: {
     backgroundColor: '#8B4513',
     paddingBottom: 10,
   },
-  headerImage: {
-    width: '100%',
+
+  banner: {
+    backgroundColor: 'white',
+    marginBottom: 20,
+    borderRadius: 15,
+    margin: 20,
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#fff',
+    marginTop: 10,
+  },
+
+  bannerLogo: {
     height: 200,
+    borderTopRightRadius: 15,
+    borderTopLeftRadius: 15,
+    width: '100%', // Make banner image full width
+  },
+  headerImage: {
+    width: 400,
+    height: 400,
+  },
+  bannerText: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
   },
   promoContainer: {
     backgroundColor: '#69332E',
@@ -85,11 +167,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   iconButton: {
-    backgroundColor: '#5E3A16',
+    backgroundColor: '#69332E',
     width: '48%',
     padding: 15,
     alignItems: 'center',
     borderRadius: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 30,
+    height: 90,
   },
   iconButtonText: {
     color: '#fff',
@@ -105,15 +191,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   venueCard: {
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
     padding: 15,
     marginBottom: 10,
     borderRadius: 10,
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowRadius: 8,
-    elevation: 5,
+    gap: 7,
   },
   venueName: {
     fontSize: 16,
@@ -123,6 +209,5 @@ const styles = StyleSheet.create({
   venueAddress: {
     fontSize: 14,
     color: '#666',
-    marginTop: 5,
   },
 });

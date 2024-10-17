@@ -4,6 +4,12 @@ import Tabnavigation from './Tabnavigation'; // Bottom Tab Navigator
 import  PaymentMethod from './screens/PaymentMethod'; // Payment Method screen
 import OrderHistory from './screens/OrderHistory';
 import FeedbackScreen from './screens/FeebackScreen';
+import VenueDetailsComponent from './components/VenuesComponent/VenueDetailsComponent';
+import { View, Text, StyleSheet } from 'react-native';
+import CartDetailsComponent from './components/VenuesComponent/CartDetailsComponent';
+import Checkout from './components/VenuesComponent/CheckoutComponent';
+import ViewCartComponent from './components/VenuesComponent/ViewCartComponent';
+
 
 const Stack = createStackNavigator();
 
@@ -54,9 +60,66 @@ const StackNavigation = () => {
         headerTintColor: '#fff',
       }}
       />
+      <Stack.Screen
+  name='VenueDetails'
+  component={VenueDetailsComponent}
+  options={{
+    // Custom header with title and subtitle
+    headerTitle: () => (
+      <View>
+        <Text style={styles.headerTitle}>THE FIKA TEAHOUSE - EAST LEGON</Text>
+        <Text style={styles.headerSubtitle}>12 Tripoli Street, Accra</Text>
+      </View>
+    ),
+    headerTintColor: '#fff',  // Customize header text color if needed
+    headerStyle: {
+      backgroundColor: '#8B4513',  // Customize header background color if needed
+    },
+  }}
+      />
+      
+      <Stack.Screen 
+        name='CartDetails'
+        component={CartDetailsComponent} 
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen 
+        name='Checkout'
+        component={Checkout}
+        options={{
+          title: 'Checkout',
+          headerTintColor: '#fff',
+        }}
+      />
+      <Stack.Screen
+        name='ViewCart'
+        component={ViewCartComponent}
+        options={{
+          title: 'View Cart',
+          headerTintColor: '#fff',
+
+        }}
+      />
 
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  headerTitle: {
+    fontSize: 18,        // Adjust the font size for the title
+    fontWeight: 'bold',  // Bold text for the title
+    color: '#fff',       // White color for the title
+    textAlign: 'center', // Center align the text
+  },
+  headerSubtitle: {
+    fontSize: 14,        // Smaller font for the subtitle
+    color: '#fff',       // White color for the subtitle
+     // Center align the text
+  },
+});
+
 
 export default StackNavigation;
