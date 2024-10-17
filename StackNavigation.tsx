@@ -1,93 +1,125 @@
 import React from 'react';
-import { Text, StyleSheet} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Tabnavigation from './Tabnavigation'; // Bottom Tab Navigator
+import  PaymentMethod from './screens/PaymentMethod'; // Payment Method screen
+import OrderHistory from './screens/OrderHistory';
+import FeedbackScreen from './screens/FeebackScreen';
 import VenueDetailsComponent from './components/VenuesComponent/VenueDetailsComponent';
+import { View, Text, StyleSheet } from 'react-native';
+import CartDetailsComponent from './components/VenuesComponent/CartDetailsComponent';
+import Checkout from './components/VenuesComponent/CheckoutComponent';
+import ViewCartComponent from './components/VenuesComponent/ViewCartComponent';
 
 
 const Stack = createStackNavigator();
 
-
 const StackNavigation = () => {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: '#8B4513',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        >
-          <Stack.Screen 
-            name="VenueDetails" 
-            component={VenueDetailsComponent} 
-            options={{
-              title: 'THE TEAHOUSE - EAST LEGON',
-              headerRight: () => (
-                <Text style={styles.headerSubtitle}>12 Tripoli Street, Accra</Text>
-              ),
-            }}
-          />
-          {/* <Stack.Screen name="CoffeeSeries" component={CoffeeSeriesScreen} />
-          <Stack.Screen name="Signature" component={SignatureScreen} />
-          <Stack.Screen name="Cart" component={CartScreen} /> */}
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  };
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#8B4513' ,height: 100},
+        headerTintColor: 'red',
+        headerTitleStyle: { fontWeight: 'bold' },
+        headerStatusBarHeight: 40,
+      }}
+    >
+      <Stack.Screen
+        name="TabNavigation"
+        component={Tabnavigation}
+        options={{ headerShown: false, }} // Hide header for the bottom tabs
+      />
+
+      <Stack.Screen
+        name='Feedback'
+        component={FeedbackScreen}
+        options={{
+          title: 'Feedback',headerTintColor: '#fff',
+        }}
+      />
+
+      {/* Other screens like PaymentMethod, VenueDetails go here */}
+      {/* <Stack.Screen
+        name="VenueDetails"
+        component={VenueDetailsComponent}
+        options={{
+          title: 'Venue Details',
+        }}
+      /> */}
+      <Stack.Screen
+        name="PaymentMethod"
+        component={PaymentMethod}
+        options={{
+          title: 'Payment Methods',headerTintColor: '#fff',
+        }}
+      />
+      <Stack.Screen
+      name='OrderHistory'
+      component={OrderHistory}
+      options={{
+        title: 'Order History',
+        headerTintColor: '#fff',
+      }}
+      />
+      <Stack.Screen
+  name='VenueDetails'
+  component={VenueDetailsComponent}
+  options={{
+    // Custom header with title and subtitle
+    headerTitle: () => (
+      <View>
+        <Text style={styles.headerTitle}>THE FIKA TEAHOUSE - EAST LEGON</Text>
+        <Text style={styles.headerSubtitle}>12 Tripoli Street, Accra</Text>
+      </View>
+    ),
+    headerTintColor: '#fff',  // Customize header text color if needed
+    headerStyle: {
+      backgroundColor: '#8B4513',  // Customize header background color if needed
+    },
+  }}
+      />
+      
+      <Stack.Screen 
+        name='CartDetails'
+        component={CartDetailsComponent} 
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen 
+        name='Checkout'
+        component={Checkout}
+        options={{
+          title: 'Checkout',
+          headerTintColor: '#fff',
+        }}
+      />
+      <Stack.Screen
+        name='ViewCart'
+        component={ViewCartComponent}
+        options={{
+          title: 'View Cart',
+          headerTintColor: '#fff',
+
+        }}
+      />
+
+    </Stack.Navigator>
+  );
+};
+
+const styles = StyleSheet.create({
+  headerTitle: {
+    fontSize: 18,        // Adjust the font size for the title
+    fontWeight: 'bold',  // Bold text for the title
+    color: '#fff',       // White color for the title
+    textAlign: 'center', // Center align the text
+  },
+  headerSubtitle: {
+    fontSize: 14,        // Smaller font for the subtitle
+    color: '#fff',       // White color for the subtitle
+     // Center align the text
+  },
+});
 
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#8B4513',
-    },
-    headerSubtitle: {
-      fontSize: 12,
-      color: 'white',
-      marginRight: 10,
-    },
-    section: {
-      marginVertical: 10,
-    },
-    sectionHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      padding: 10,
-    },
-    sectionTitle: {
-      fontSize: 16,
-      fontWeight: 'bold',
-      color: 'white',
-    },
-    viewAll: {
-      color: '#4CAF50',
-    },
-    cart: {
-      backgroundColor: '#6B3E26',
-      padding: 15,
-      alignItems: 'center',
-    },
-    cartText: {
-      color: 'white',
-      fontWeight: 'bold',
-    },
-    screenContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#8B4513',
-    },
-    screenTitle: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      color: 'white',
-      marginBottom: 20,
-    },
-  });
-  
 export default StackNavigation;

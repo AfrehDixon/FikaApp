@@ -33,11 +33,7 @@ const Checkout = () => {
 
     return (
         <ScrollView style={styles.container}>
-            {/* Checkout Header */}
-            <View style={styles.header}>
-                <Ionicons name="arrow-back" size={30} color="#fff" />
-                <Text style={styles.headerTitle}>CHECKOUT</Text>
-            </View>
+
 
             {/* Cart Items Section */}
             <View style={styles.Overview}>
