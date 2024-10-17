@@ -10,7 +10,8 @@ import Loyalty from './screens/Loyalty';
 import { RouteProp } from '@react-navigation/native'; // Importing RouteProp for type definition
 import StackNavigation from './StackNavigation';
 import VenueDetailsComponent from './components/VenuesComponent/VenueDetailsComponent';
-import CartDetailsComponent from './components/VenuesComponent/CartDetailsComponent.tsx';
+import ViewCartComponent from './components/VenuesComponent/ViewCartComponent.tsx';
+import CheckoutComponent from './components/VenuesComponent/CheckoutComponent.tsx';
 
 const Tab = createBottomTabNavigator();
 
@@ -73,7 +74,7 @@ export default function App() {
           name="Profile"
           component={SettingScreen}
           options={{
-            tabBarLabel: 'Profile'          // Set the label for Profile
+            tabBarLabel: 'Settings'          // Set the label for Profile
           }}
         />
         <Tab.Screen
@@ -85,10 +86,10 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="cart"
-          component={CartDetailsComponent}
+          name="Checkout"
+          component={CheckoutComponent}
           options={{
-            tabBarLabel: 'CartDetail',   
+            tabBarLabel: 'Checkout',   
             headerShown: false,       // Set the label for Profile
           }}
         />
