@@ -3,9 +3,9 @@ import React from 'react';
 
 export default function PaymentMethod() {
     const paymentClients = [
-        { id: 1, name: 'MTN', number: '0555429655', image: require('../assets/image/MTN-logo- 1.png') },
-        { id: 2, name: 'MTN', number: '0555429655', image: require('../assets/image/MTN-logo- 1.png') },
-        { id: 3, name: 'Tigo', number: '0555429655', image: require('../assets/image/MTN-logo- 1.png')},
+        { id: 1, name: 'MTN', number: '0555429655', image: require('../assets/image/mtn.jpeg') },
+        { id: 2, name: 'MTN', number: '0555429655', image: require('../assets/image/tigo.png') },
+        { id: 3, name: 'Tigo', number: '0555429655', image: require('../assets/image/mastercard.jpeg')},
         // { id: 4, name: 'Aitel', number: '05554296551', image: require('../assets/image/MTN-logo- 1.png') },
     ];
 
@@ -15,7 +15,7 @@ export default function PaymentMethod() {
             {paymentClients.map(client => (
                 <TouchableOpacity key={client.id} style={styles.clientContainer}>
                     {/* <View style={styles.imageContainer}> */}
-                        <Image source={require('../assets/image/MTN-logo- 1.png')} style={styles.image} />
+                        <Image source={client.image} style={styles.image} />
                     {/* </View> */}
                     <View style={styles.infoContainer}>
                         <Text style={styles.clientName}>{client.name}</Text>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     clientContainer: {
         flexDirection: 'row',
         marginBottom: 10,
-        padding: 12,
+        padding: 15,
         backgroundColor: '#fff',
         borderRadius: 10,
         shadowColor: '#000', // Shadow for iOS
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
         // backgroundColor: 'red',
     },
     image: {
-        width: 80,
-        height: 80,
+        width: 61,
+        height: 47,
         borderRadius: 10, // Makes the image circular
     },
     infoContainer: {
@@ -95,6 +95,6 @@ const styles = StyleSheet.create({
     clientNumber: {
         fontSize: 16,
         color: 'gray',
-        marginTop: 5, // Slightly reduce margin between name and number
+        marginTop: 7, // Slightly reduce margin between name and number
     },
 });
