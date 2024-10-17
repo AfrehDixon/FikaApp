@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
 export function SettingScreen() {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>PROFILE</Text>
+      <StatusBar hidden={true} />
       <View style={styles.profileContainer}>
         <View style={styles.profileIcon}>
           <Text style={styles.initial}>C</Text>
@@ -15,24 +17,19 @@ export function SettingScreen() {
       </View>
 
       <View style={styles.menuContainer}>
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity style={styles.menuItem}  onPress={() => navigation.navigate("PaymentMethod")}>
           <Icon name="credit-card" size={20} color="#5E3A16" />
           <Text style={styles.menuText}>Payment Methods</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity style={styles.menuItem} onPress={()=> navigation.navigate("OrderHistory")}>
           <Icon name="history" size={20} color="#5E3A16" />
           <Text style={styles.menuText}>Order History</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity style={styles.menuItem} onPress={()=> navigation.navigate("Feedback")}>
           <Icon name="comment" size={20} color="#5E3A16" />
           <Text style={styles.menuText}>Send Feedback</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <Icon name="cog" size={20} color="#5E3A16" />
-          <Text style={styles.menuText}>Settings</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuItem}>
@@ -47,7 +44,7 @@ export function SettingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#F0F0F0',
     padding: 20,
   },
   title: {

@@ -9,10 +9,11 @@ export function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
+        <StatusBar hidden={true} />
         {/* Header with image */}
         <View style={styles.header}>
           <Image
-            source={{ uri: 'https://your-image-url.com/fika-header.png' }} // Add the URL for your header image here
+            source={require('../assets/image/chocolate.png')} // Add the URL for your header image here
             style={styles.headerImage}
             resizeMode="cover"
           />
