@@ -107,7 +107,7 @@ const Checkout = () => {
 
                         <TouchableOpacity style={styles.paymentOption}>
                             <Image source={require('../../assets/image/tigo.png')} style={styles.paymentImage} />
-                            <Text style={styles.paymentText}>Tigo Cash</Text>
+                            <Text style={styles.paymentText}>AirtelTigo Money</Text>
                         </TouchableOpacity>
                         <View style={styles.horizontalLine} />
 
