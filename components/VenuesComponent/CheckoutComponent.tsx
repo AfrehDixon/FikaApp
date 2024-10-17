@@ -70,13 +70,14 @@ const Checkout = () => {
                         <Text style={styles.pickupText}>Pickup</Text>
                     </TouchableOpacity>
                 </View>
+                 <TouchableOpacity style={styles.payButton} onPress={toggleModal}>
+                <Text style={styles.payButtonText}>Pay GHC 60.00</Text>
+            </TouchableOpacity>
             </View>
 
 
             {/* Pay Button */}
-            <TouchableOpacity style={styles.payButton} onPress={toggleModal}>
-                <Text style={styles.payButtonText}>Pay GHC 60.00</Text>
-            </TouchableOpacity>
+           
 
             {/* Modal */}
             <Modal
@@ -216,9 +217,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: 'center',
         // marginHorizontal: 15,
-        marginTop: 50,
-        flexDirection: 'row',
-        justifyContent: 'center',
+        marginTop: "60 %"
+        ,
+        flex: 6
+        // flexDirection: 'row',
+        // justifyContent: 'center',
+        
     },
     payButtonText: {
         color: '#fff',
