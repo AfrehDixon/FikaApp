@@ -16,27 +16,37 @@ export function SettingScreen() {
 
       <View style={styles.menuContainer}>
         <TouchableOpacity style={styles.menuItem}>
-          <Icon name="credit-card" size={20} color="#5E3A16" />
+          <View style={styles.menuCard}>
+            <Icon name="credit-card" size={20} color="#f5f5f5" />
+          </View>
           <Text style={styles.menuText}>Payment Methods</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuItem}>
-          <Icon name="history" size={20} color="#5E3A16" />
+          <View style={styles.menuCard}>
+            <Icon name="history" size={20} color="#f5f5f5" />
+          </View>
           <Text style={styles.menuText}>Order History</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuItem}>
-          <Icon name="comment" size={20} color="#5E3A16" />
+          <View style={styles.menuCard}>
+            <Icon name="comment" size={20} color="#f5f5f5" />
+          </View>
           <Text style={styles.menuText}>Send Feedback</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuItem}>
-          <Icon name="cog" size={20} color="#5E3A16" />
+          <View style={styles.menuCard}>
+            <Icon name="cog" size={20} color="#f5f5f5" />
+          </View>
           <Text style={styles.menuText}>Settings</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuItem}>
-          <Icon name="sign-out" size={20} color="#5E3A16" />
+          <View style={styles.menuCard}>
+            <Icon name="sign-out" size={20} color="#f5f5f5" />
+          </View>
           <Text style={styles.menuText}>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -63,10 +73,18 @@ const styles = StyleSheet.create({
   profileIcon: {
     width: 80,
     height: 80,
-    backgroundColor: '#6D28D9',
+    backgroundColor: '#5E3A16',
     borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  menuCard: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#5E3A16',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   initial: {
     color: '#fff',

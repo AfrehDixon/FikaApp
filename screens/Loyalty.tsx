@@ -30,10 +30,12 @@ const Loyalty = () => {
       {/* Rewards */}
       <Text style={styles.rewardsTitle}>Rewards</Text>
       <View style={styles.rewardItem}>
-        <Image
-          style={styles.rewardImage}
-          source={{ uri: 'https://via.placeholder.com/50' }} // Replace with your drink image
-        />
+        <View style={styles.rewardCard}>
+          <Image
+            style={styles.rewardImage}
+            source={require('../assets/image/fika4.png')} // Replace with your drink image
+          />
+        </View>
         <View style={styles.rewardDetails}>
           <Text style={styles.rewardText}>Hydrate Station</Text>
 
@@ -42,10 +44,12 @@ const Loyalty = () => {
       </View>
 
       <View style={styles.rewardItem}>
+        <View style={styles.rewardCard}>
         <Image
           style={styles.rewardImage}
-          source={{ uri: 'https://via.placeholder.com/50' }} // Replace with your drink image
+          source={require('../assets/image/fika4.png')} // Replace with your drink image
         />
+        </View>
         <View style={styles.rewardDetails}>
           <Text style={styles.rewardText}>Bubble Tea</Text>
 
@@ -133,9 +137,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
   },
-  rewardImage: {
+  rewardCard: {
     width: 50,
     height: 50,
+    borderRadius: 30,
+    backgroundColor: '#69332E',
+    // padding: 2,
+  },
+  rewardImage: {
+    width: 50,
+    height: 70,
     borderRadius: 10,
     marginRight: 10,
   },
