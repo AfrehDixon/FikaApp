@@ -6,8 +6,8 @@ const CartDetailsComponent = ({ navigation }) => {
   const [selectedSize, setSelectedSize] = useState('BIBIO');
 
   const sizes = [
-    { name: 'BIBIO', price: 30 },
-    { name: 'ELOLO', price: 45 },
+    { name: 'BIBIO', price: 3500 },
+    { name: 'ELOLO', price: 450 },
     { name: 'KESE', price: 40 },
   ];
 
