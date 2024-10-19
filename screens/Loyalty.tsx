@@ -7,39 +7,41 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import { Icon } from 'react-native-elements';
 // import Icon from 'react-native-vector-icons/Ionicons';
 
 const Loyalty = () => {
   return (
     <ScrollView style={styles.container}>
       {/* Loyalty Card */}
+      <Text style={styles.title}>Profile</Text>
       <View style={styles.loyaltyCard}>
         <View
-            style={{
-              width: 40,
-              height: 40,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 50,
+          style={{
+            width: 40,
+            height: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 50,
             alignSelf: 'center',
-              marginBottom: 20,
-              // marginTop: 40,
-              
-              // Half the width and height to make it circular
-            }}>
-            <Image
-              source={require('../assets/image/fika5.png')} // Path to your image
-              style={{
-                width: 40, // Slightly smaller than the container to show the red background as a border
-                height: 40,
-                borderRadius: 45, // Half of the width/height to make the image circular
-                // borderWidth: 5, // Adds a border around the image
-                borderColor: 'white',
-                alignSelf: 'center ', // Border color (you can change it if needed)
-              }}
-              resizeMode="cover" // Ensures the image covers the entire circle
-            />
-          </View>
+            marginBottom: 20,
+            // marginTop: 40,
+
+            // Half the width and height to make it circular
+          }}>
+          <Image
+            source={require('../assets/image/fika5.png')} // Path to your image
+            style={{
+              width: 40, // Slightly smaller than the container to show the red background as a border
+              height: 40,
+              borderRadius: 45, // Half of the width/height to make the image circular
+              // borderWidth: 5, // Adds a border around the image
+              borderColor: 'white',
+              alignSelf: 'center ', // Border color (you can change it if needed)
+            }}
+            resizeMode="cover" // Ensures the image covers the entire circle
+          />
+        </View>
         <View style={styles.cardHolder}>
           <Image
             style={styles.qrCode}
@@ -64,17 +66,32 @@ const Loyalty = () => {
         </View>
         <View style={styles.rewardDetails}>
           <Text style={styles.rewardText}>Hydrate Station</Text>
-
-          <Text>60/100</Text>
+          <View style={{display:'flex', gap: 5, flexDirection: 'row' ,margin:5}}>
+            <View style={styles.radioButton}>
+              {/* <View style={styles.radioButtonInner} /> */}
+            </View>
+   <Text>60/100</Text>
+</View>
+         
         </View>
+        <View>
+          {/* {selectedSize === size.name && ( */}
+            <View style={styles.radioButton}>
+              <View style={styles.radioButtonInner} />
+            </View>
+          {/* )} */}
+        </View>
+        {/* <View>
+          <View style={{borderColor: 'red'  , borderStyle: 'dashed' ,borderWidth: 10}}> </View>
+        </View> */}
       </View>
 
       <View style={styles.rewardItem}>
         <View style={styles.rewardCard}>
-        <Image
-          style={styles.rewardImage}
-          source={require('../assets/image/fika4.png')} // Replace with your drink image
-        />
+          <Image
+            style={styles.rewardImage}
+            source={require('../assets/image/fika4.png')} // Replace with your drink image
+          />
         </View>
         <View style={styles.rewardDetails}>
           <Text style={styles.rewardText}>Bubble Tea</Text>
@@ -86,6 +103,10 @@ const Loyalty = () => {
       {/* Transactions Button */}
       <TouchableOpacity style={styles.transactionsButton}>
         <Text style={styles.transactionsText}>Transactions</Text>
+
+
+<Icon name="chevron-right" size={24} color="#1E1E1E" />
+
       </TouchableOpacity>
     </ScrollView>
   );
@@ -97,6 +118,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0F0F0',
     paddingHorizontal: 20,
   },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    //  marginBottom: 5,
+    marginTop: 15,
+    color: '#000',
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -106,6 +134,21 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  radioButton: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#4A2B20',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  radioButtonInner: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#4A2B20',
   },
   headerIcons: {
     flexDirection: 'row',
@@ -187,13 +230,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 30,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
     padding: 15,
     borderRadius: 10,
   },
   transactionsText: {
     fontSize: 16,
-    color: 'brown',
+    color: '#1E1E1E',
     flex: 1,
   },
 });
