@@ -17,7 +17,7 @@ export function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <StatusBar hidden={true} />
+        <StatusBar  backgroundColor='#5E3A16' />
         <View style={{backgroundColor: '#5E3A16'}}>
           <View
             style={{
@@ -27,8 +27,8 @@ export function HomeScreen() {
               alignItems: 'center',
               borderRadius: 50,
               alignSelf: 'center',
-              marginTop: 40,
-              
+              marginTop: 30,
+
               // Half the width and height to make it circular
             }}>
             <Image
@@ -76,7 +76,6 @@ export function HomeScreen() {
         {/* Buttons for Refer and QR code */}
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.iconButton}>
-            
             <Text style={styles.iconButtonText}>Refer a friend</Text>
             <Icon name="people-outline" size={24} color="#FFF" />
           </TouchableOpacity>

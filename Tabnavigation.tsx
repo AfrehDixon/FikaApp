@@ -1,28 +1,28 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { SettingScreen } from './screens/SettingScreen';
+import {SettingScreen} from './screens/SettingScreen';
 // import { HomeScreen } from './screens/HomeScreen';
 import Loyalty from './screens/Loyalty';
-import { RouteProp } from '@react-navigation/native';
-import { HomeScreen } from './screens/HomeScreen';
-import { View } from 'react-native';
+import {RouteProp} from '@react-navigation/native';
+import {HomeScreen} from './screens/HomeScreen';
+import {View} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 const getTabBarIcon = (
   route: RouteProp<Record<string, object | undefined>, string>,
   color: string,
-  size: number
+  size: number,
 ) => {
-  let iconName: string = 'home-outline';  // Default value to avoid the error
+  let iconName: string = 'home-outline'; // Default value to avoid the error
 
   if (route.name === 'Home') {
     iconName = 'home-outline';
   } else if (route.name === 'Tickets') {
     iconName = 'ticket-outline';
   } else if (route.name === 'Profile') {
-    iconName = 'account-outline';  // Use account-outline for profile
+    iconName = 'account-outline'; // Use account-outline for profile
   }
 
   return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
@@ -31,6 +31,7 @@ const getTabBarIcon = (
 export default function Tabnavigation() {
   return (
     <Tab.Navigator
+
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => getTabBarIcon(route, color, size),
         tabBarActiveTintColor: '#5E3A16',
@@ -55,6 +56,7 @@ export default function Tabnavigation() {
           margin: 5,
         },
         // tabBarActiveBackgroundColor: '#fff',
+
 
       })}
     >
