@@ -8,6 +8,7 @@ export function SettingScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar hidden={true} />
+      <Text style={styles.title}>Profile</Text>
       <View style={styles.profileContainer}>
         <View style={styles.profileIcon}>
           <Text style={styles.initial}>C</Text>

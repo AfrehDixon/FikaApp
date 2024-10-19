@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image,StatusBar } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, StatusBar } from 'react-native';
 
 const orders = [
     {
         id: '1',
-        icon: 'https://via.placeholder.com/50',
+        icon: require('../assets/image/orderIcon.png'),
         name: 'Vanilla Cone',
         description: 'Classic vanilla ice cream in a crispy cone.',
         price: '20 GHS',
@@ -14,7 +14,7 @@ const orders = [
     },
     {
         id: '2',
-        icon: 'https://via.placeholder.com/50',
+        icon: require('../assets/image/orderIcon.png'),
         name: 'Chocolate Scoop',
         description: 'Rich chocolate ice cream with a smooth texture.',
         price: '15 GHS',
@@ -24,7 +24,7 @@ const orders = [
     },
     {
         id: '3',
-        icon: 'https://via.placeholder.com/50',
+        icon: require('../assets/image/orderIcon.png'),
         name: 'Strawberry Delight',
         description: 'Fresh strawberry ice cream bursting with flavor.',
         price: '30 GHS',
@@ -46,38 +46,36 @@ const orders = [
 
 const OrderHistory = () => {
     const renderItem = ({ item }) => (
-        <View style ={{backgroundColor: '#F0F0F0' , gap: 7}}>
-        <View style={styles.card}>
-            
-            <StatusBar hidden={true} /> 
-            <View style={styles.iconContainer}>
-                <Image source={{ uri: item.icon }} style={styles.icon} />
+        <View style={{ backgroundColor: '#F0F0F0', gap: 7 }}>
+            <View style={styles.card}>
+                <StatusBar hidden={true} />
+                <View style={styles.iconContainer}>
+                    <Image source={item.icon} style={styles.icon} />
+                </View>
+                <View style={styles.detailsContainer}>
+                    <Text style={styles.name}>{item.name}</Text>
+                    <View style={styles.descriptionPriceContainer}>
+                        <Text style={styles.description}>{item.description}</Text>
+                        <Text style={styles.price}>{item.price}</Text>
+                    </View>
+                    <View style={styles.orderstatus}>
+                        <Text style={styles.paymentType}>Payment Type: <Text style={styles.paymentTypeValue}>{item.paymentType}</Text></Text>
+                        <Text style={styles.deliveryTo}>Delivery to: <Text style={styles.deliveryToValue}>{item.deliveryTo}</Text></Text>
+                        <Text style={styles.status}>Status: <Text style={styles.statusValue}>{item.status}</Text></Text>
+                    </View>
+                </View>
             </View>
-            <View style={styles.detailsContainer}>
-                <Text style={styles.name}>{item.name}</Text>
-                <View style={styles.descriptionPriceContainer}>
-                    <Text style={styles.description}>{item.description}</Text>
-                    <Text style={styles.price}>{item.price}</Text>
-                </View>
-                <View style={styles.orderstatus}>
-                    <Text style={styles.paymentType}>Payment Type: <Text style={styles.paymentTypeValue}>{item.paymentType}</Text></Text>
-                    <Text style={styles.deliveryTo}>Delivery to: <Text style={styles.deliveryToValue}>{item.deliveryTo}</Text></Text>
-                    <Text style={styles.status}>Status: <Text style={styles.statusValue}>{item.status}</Text></Text>
-                </View>
-                
-                </View>
-                </View>
         </View>
     );
 
     return (
         <View>
-        <FlatList
-            data={orders}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={styles.listContainer} // Adds padding to the FlatList
-        />
+            <FlatList
+                data={orders}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                contentContainerStyle={styles.listContainer} // Adds padding to the FlatList
+            />
         </View>
     );
 };
@@ -100,11 +98,17 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
         marginRight: 15, // Increased space between icon and details
-    },
-    icon: {
         width: 50,
         height: 50,
-        borderRadius: 25,
+        borderRadius: 25, // Rounded corners for the icon card
+        backgroundColor: '#6B3E26', // Background color for the icon card
+        justifyContent: 'center',
+        alignItems: 'center', // Centered text inside the icon card
+    },
+    icon: {
+        width: 30,
+        height: 30,
+        // borderRadius: 25,
     },
     detailsContainer: {
         flex: 1,
@@ -129,7 +133,7 @@ const styles = StyleSheet.create({
     },
     orderstatus: {
         // marginTop: 5,
-        gap: 5// Space between description and order status
+        gap: 5,// Space between description and order status
     },
     price: {
         fontSize: 14,

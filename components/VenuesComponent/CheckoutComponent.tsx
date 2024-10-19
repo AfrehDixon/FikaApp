@@ -43,13 +43,17 @@ const Checkout = () => {
                     </Text>
                     <View style={styles.cartItem}>
                         <Text style={styles.cartItemName}>1. Love Cocoa Coffee Cream Latte </Text>
-                        <Text style={styles.cartItemDescription}>Fresh coconut milk, layered with whipped coffee</Text>
-                        <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+                        <View style={styles.priceRow}>
+                            <Text style={styles.cartItemDescription}>Fresh coconut milk, layered with whipped coffee</Text>
+                            <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+                        </View>
                     </View>
                     <View style={styles.cartItem}>
                         <Text style={styles.cartItemName}>2. Fika Vanilla Americano </Text>
-                        <Text style={styles.cartItemDescription}>Whipped coffee, vanilla, brown sugar syrup</Text>
-                        <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+                        <View style={styles.priceRow}>
+                            <Text style={styles.cartItemDescription}>Whipped coffee, vanilla, brown sugar syrup</Text>
+                            <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+                        </View>
                     </View>
                     <Text style={styles.totalPrice}>TOTAL: GHC 60.00</Text>
                 </View>
@@ -70,14 +74,14 @@ const Checkout = () => {
                         <Text style={styles.pickupText}>Pickup</Text>
                     </TouchableOpacity>
                 </View>
-                 <TouchableOpacity style={styles.payButton} onPress={toggleModal}>
-                <Text style={styles.payButtonText}>Pay GHC 60.00</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.payButton} onPress={toggleModal}>
+                    <Text style={styles.payButtonText}>Pay GHC 60.00</Text>
+                </TouchableOpacity>
             </View>
 
 
             {/* Pay Button */}
-           
+
 
             {/* Modal */}
             <Modal
@@ -104,7 +108,7 @@ const Checkout = () => {
 
                         <TouchableOpacity style={styles.paymentOption}>
                             <Image source={require('../../assets/image/tigo.png')} style={styles.paymentImage} />
-                            <Text style={styles.paymentText}>Tigo Cash</Text>
+                            <Text style={styles.paymentText}>AirtelTigo Money</Text>
                         </TouchableOpacity>
                         <View style={styles.horizontalLine} />
 
@@ -147,7 +151,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     section: {
-        backgroundColor: '#fff',
+        backgroundColor: '#FFFFFF',
         padding: 10,
         marginVertical: 10,
         borderRadius: 10,
@@ -216,13 +220,14 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 5,
         alignItems: 'center',
-        // marginHorizontal: 15,
-        marginTop: "60 %"
-        ,
-        flex: 6
-        // flexDirection: 'row',
-        // justifyContent: 'center',
-        
+        marginTop: '65%',
+        flex: 6,
+    },
+    priceRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 5,
     },
     payButtonText: {
         color: '#fff',

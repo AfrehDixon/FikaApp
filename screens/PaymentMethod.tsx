@@ -4,8 +4,8 @@ import React from 'react';
 export default function PaymentMethod() {
     const paymentClients = [
         { id: 1, name: 'MTN', number: '0555429655', image: require('../assets/image/mtn.jpeg') },
-        { id: 2, name: 'MTN', number: '0555429655', image: require('../assets/image/tigo.png') },
-        { id: 3, name: 'Tigo', number: '0555429655', image: require('../assets/image/mastercard.jpeg')},
+        { id: 2, name: 'AirtelTigo', number: '0555429655', image: require('../assets/image/tigo.png') },
+        { id: 3, name: 'Master Card', number: '03546455429655', image: require('../assets/image/mastercard.jpeg')},
         // { id: 4, name: 'Aitel', number: '05554296551', image: require('../assets/image/MTN-logo- 1.png') },
     ];
 

@@ -33,40 +33,52 @@ export default function Tabnavigation() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => getTabBarIcon(route, color, size),
-        tabBarActiveTintColor: '#6D28D9',
+        tabBarActiveTintColor: '#5E3A16',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
           backgroundColor: '#fff',
           borderTopWidth: 1,
           borderTopColor: '#e0e0e0',
           height: 60,
-          paddingBottom: 10,
-          paddingTop: 10,
+          // paddingBottom: 10,
+          // paddingTop: 10,
+          padding: 10,
+          margin: 10,
           width: '90%',
           justifyContent: 'center',
           alignSelf: 'center',
-          borderRadius : 50,
+          borderRadius: 50,
         },
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
+          margin: 5,
         },
         // tabBarActiveBackgroundColor: '#fff',
-        
+
       })}
     >
-      <Tab.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}} />
-      <Tab.Screen name="Tickets" component={Loyalty} />
       <Tab.Screen
-  name="Setting"
-  component={SettingScreen}
-  options={{ 
-    headerTitle: 'Profile',
-    headerTintColor: '#F0F0F0',
-    headerTitleStyle: { fontWeight: 'bold', color: '#000000' },
+        name="Home"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
 
-  }}
-/>
+      <Tab.Screen
+        name="Loyalty"
+        component={Loyalty}
+      />
+
+      <Tab.Screen
+        name="Profile"
+        component={SettingScreen}
+        options={{
+          // headerTitle: 'Profile',
+          // headerTintColor: '#F0F0F0',
+          // headerTitleStyle: { fontWeight: 'bold', color: '#000000' },
+          headerShown: false,
+        }}
+      />
 
     </Tab.Navigator>
   );
