@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f5f5f5',
     },
     textArea: {
-        height: 150,
+        height: 350,
         borderColor: '#ccc',
         borderWidth: 1,
         padding: 10,
