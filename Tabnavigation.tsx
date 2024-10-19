@@ -1,28 +1,28 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { SettingScreen } from './screens/SettingScreen';
+import {SettingScreen} from './screens/SettingScreen';
 // import { HomeScreen } from './screens/HomeScreen';
 import Loyalty from './screens/Loyalty';
-import { RouteProp } from '@react-navigation/native';
-import { HomeScreen } from './screens/HomeScreen';
-import { View } from 'react-native';
+import {RouteProp} from '@react-navigation/native';
+import {HomeScreen} from './screens/HomeScreen';
+import {View} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 const getTabBarIcon = (
   route: RouteProp<Record<string, object | undefined>, string>,
   color: string,
-  size: number
+  size: number,
 ) => {
-  let iconName: string = 'home-outline';  // Default value to avoid the error
+  let iconName: string = 'home-outline'; // Default value to avoid the error
 
   if (route.name === 'Home') {
     iconName = 'home-outline';
   } else if (route.name === 'Tickets') {
     iconName = 'ticket-outline';
   } else if (route.name === 'Profile') {
-    iconName = 'account-outline';  // Use account-outline for profile
+    iconName = 'account-outline'; // Use account-outline for profile
   }
 
   return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
@@ -31,8 +31,8 @@ const getTabBarIcon = (
 export default function Tabnavigation() {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => getTabBarIcon(route, color, size),
+      screenOptions={({route}) => ({
+        tabBarIcon: ({color, size}) => getTabBarIcon(route, color, size),
         tabBarActiveTintColor: '#6D28D9',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
@@ -45,29 +45,37 @@ export default function Tabnavigation() {
           width: '90%',
           justifyContent: 'center',
           alignSelf: 'center',
-          borderRadius : 50,
+          borderRadius: 50,
         },
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
         },
         // tabBarActiveBackgroundColor: '#fff',
-        
-      })}
-    >
-      <Tab.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}} />
-      <Tab.Screen name="Tickets" component={Loyalty} />
+      })}>
       <Tab.Screen
-  name="Setting"
-  component={SettingScreen}
-  options={{ 
-    headerTitle: 'Profile',
-    headerTintColor: '#F0F0F0',
-    headerTitleStyle: { fontWeight: 'bold', color: '#000000' },
-
-  }}
-/>
-
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Tickets"
+        component={Loyalty}
+        options={{
+          headerTitle: 'LOYALTY',
+          headerStyle: {backgroundColor: '#F0F0F0', height: 60},
+        }}
+      />
+      <Tab.Screen
+        name="Setting"
+        component={SettingScreen}
+        options={{
+          headerTitle: 'Profile',
+          headerTintColor: '#F0F0F0',
+          headerTitleStyle: {fontWeight: 'bold', color: '#000000'},
+          headerStyle: {backgroundColor: '#F0F0F0', height: 100},
+        }}
+      />
     </Tab.Navigator>
   );
 }

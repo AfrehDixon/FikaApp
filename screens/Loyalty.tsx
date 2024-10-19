@@ -14,6 +14,32 @@ const Loyalty = () => {
     <ScrollView style={styles.container}>
       {/* Loyalty Card */}
       <View style={styles.loyaltyCard}>
+        <View
+            style={{
+              width: 40,
+              height: 40,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 50,
+            alignSelf: 'center',
+              marginBottom: 20,
+              // marginTop: 40,
+              
+              // Half the width and height to make it circular
+            }}>
+            <Image
+              source={require('../assets/image/fika5.png')} // Path to your image
+              style={{
+                width: 40, // Slightly smaller than the container to show the red background as a border
+                height: 40,
+                borderRadius: 45, // Half of the width/height to make the image circular
+                // borderWidth: 5, // Adds a border around the image
+                borderColor: 'white',
+                alignSelf: 'center ', // Border color (you can change it if needed)
+              }}
+              resizeMode="cover" // Ensures the image covers the entire circle
+            />
+          </View>
         <View style={styles.cardHolder}>
           <Image
             style={styles.qrCode}
@@ -117,11 +143,11 @@ const styles = StyleSheet.create({
   },
   pointsText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 14,
   },
   userId: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
   },
   rewardsTitle: {
     fontSize: 18,
