@@ -18,21 +18,12 @@ const MenuItem = ({ title, description, imageSource }) => (
 const ViewCartComponent = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <StatusBar
+            {/* <StatusBar
                 barStyle="light-content"
                 backgroundColor="#5E3A16"
                 translucent={true}
-            />
+            /> */}
 
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icon name="chevron-back" size={24} color="white" />
-                </TouchableOpacity>
-                <View>
-                    <Text style={styles.headerTitle}>THE FIKA TEAHOUSE - EAST LEGON</Text>
-                    <Text style={styles.headerSubtitle}>12 Tripoli Street, Accra</Text>
-                </View>
-            </View>
 
             <ScrollView style={styles.content}>
                 <View style={styles.section}>
@@ -51,7 +42,7 @@ const ViewCartComponent = ({ navigation }) => {
                         <MenuItem
                             title="Fika Vanilla Americano"
                             description="Whipped coffee, vanilla, brown sugar syrup"
-                            imageSource={require('../../assets/image/coffee1.jpeg')}
+                            imageSource={require('../../assets/image/fika3.png')}
                         />
                     </ScrollView>
                 </View>
@@ -66,20 +57,20 @@ const ViewCartComponent = ({ navigation }) => {
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                         <MenuItem
                             title="Chocolatev"
-                            description=""  // Add description if available
-                            imageSource={require('../../assets/image/coffee1.jpeg')}
+                            description="Rich chocolate with a touch of espresso"  // Add description if available
+                            imageSource={require('../../assets/image/fikashelf2.png')}
                         />
                         <MenuItem
                             title="Caramel Lotus"
-                            description=""  // Add description if available
-                            imageSource={require('../../assets/image/coffee1.jpeg')}
+                            description="Caramel and lotus biscuit latte"  // Add description if available
+                            imageSource={require('../../assets/image/fikashelf3.png')}
                         />
                     </ScrollView>
                 </View>
             </ScrollView>
 
             <View style={styles.cart}>
-                <TouchableOpacity style={styles.cartCard}>
+                <TouchableOpacity style={styles.cartCard} onPress={()=> navigation.navigate('Checkout')}>
                     <Text style={styles.cartDetails}>2</Text>
                     <Text style={styles.cartDetails}>View Cart</Text>
                     <Text style={styles.cartDetails}>GHC 30</Text>
@@ -117,6 +108,7 @@ const styles = StyleSheet.create({
     },
     section: {
         marginVertical: 10,
+        height: '55%',
     },
     sectionHeader: {
         flexDirection: 'row',
@@ -144,7 +136,7 @@ const styles = StyleSheet.create({
     },
     menuItemImage: {
         width: '100%',
-        height: 150,
+        height: 172,
         resizeMode: 'cover',
     },
     menuItemInfo: {

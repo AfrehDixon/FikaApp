@@ -33,11 +33,7 @@ const Checkout = () => {
 
     return (
         <ScrollView style={styles.container}>
-            {/* Checkout Header */}
-            <View style={styles.header}>
-                <Ionicons name="arrow-back" size={30} color="#fff" />
-                <Text style={styles.headerTitle}>CHECKOUT</Text>
-            </View>
+
 
             {/* Cart Items Section */}
             <View style={styles.Overview}>
@@ -47,13 +43,17 @@ const Checkout = () => {
                     </Text>
                     <View style={styles.cartItem}>
                         <Text style={styles.cartItemName}>1. Love Cocoa Coffee Cream Latte </Text>
-                        <Text style={styles.cartItemDescription}>Fresh coconut milk, layered with whipped coffee</Text>
-                        <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+                        <View style={styles.priceRow}>
+                            <Text style={styles.cartItemDescription}>Fresh coconut milk, layered with whipped coffee</Text>
+                            <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+                        </View>
                     </View>
                     <View style={styles.cartItem}>
                         <Text style={styles.cartItemName}>2. Fika Vanilla Americano </Text>
-                        <Text style={styles.cartItemDescription}>Whipped coffee, vanilla, brown sugar syrup</Text>
-                        <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+                        <View style={styles.priceRow}>
+                            <Text style={styles.cartItemDescription}>Whipped coffee, vanilla, brown sugar syrup</Text>
+                            <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+                        </View>
                     </View>
                     <Text style={styles.totalPrice}>TOTAL: GHC 60.00</Text>
                 </View>
@@ -74,13 +74,14 @@ const Checkout = () => {
                         <Text style={styles.pickupText}>Pickup</Text>
                     </TouchableOpacity>
                 </View>
+                <TouchableOpacity style={styles.payButton} onPress={toggleModal}>
+                    <Text style={styles.payButtonText}>Pay GHC 60.00</Text>
+                </TouchableOpacity>
             </View>
 
 
             {/* Pay Button */}
-            <TouchableOpacity style={styles.payButton} onPress={toggleModal}>
-                <Text style={styles.payButtonText}>Pay GHC 60.00</Text>
-            </TouchableOpacity>
+
 
             {/* Modal */}
             <Modal
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     section: {
-        backgroundColor: '#fff',
+        backgroundColor: '#FFFFFF',
         padding: 10,
         marginVertical: 10,
         borderRadius: 10,
@@ -219,10 +220,14 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 5,
         alignItems: 'center',
-        // marginHorizontal: 15,
-        marginTop: 50,
+        marginTop: '65%',
+        flex: 6,
+    },
+    priceRow: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 5,
     },
     payButtonText: {
         color: '#fff',
