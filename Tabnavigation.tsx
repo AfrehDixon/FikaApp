@@ -31,17 +31,20 @@ const getTabBarIcon = (
 export default function Tabnavigation() {
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({color, size}) => getTabBarIcon(route, color, size),
-        tabBarActiveTintColor: '#6D28D9',
+
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => getTabBarIcon(route, color, size),
+        tabBarActiveTintColor: '#5E3A16',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
           backgroundColor: '#fff',
           borderTopWidth: 1,
           borderTopColor: '#e0e0e0',
           height: 60,
-          paddingBottom: 10,
-          paddingTop: 10,
+          // paddingBottom: 10,
+          // paddingTop: 10,
+          padding: 10,
+          margin: 10,
           width: '90%',
           justifyContent: 'center',
           alignSelf: 'center',
@@ -50,32 +53,35 @@ export default function Tabnavigation() {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
+          margin: 5,
         },
         // tabBarActiveBackgroundColor: '#fff',
-      })}>
+
+
+      })}
+    >
       <Tab.Screen
-        name="HomeScreen"
+        name="Home"
         component={HomeScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
+
       <Tab.Screen
-        name="Tickets"
+        name="Loyalty"
         component={Loyalty}
-        options={{
-          headerTitle: 'LOYALTY',
-          headerStyle: {backgroundColor: '#F0F0F0', height: 60},
-        }}
       />
+
       <Tab.Screen
-        name="Setting"
+        name="Profile"
         component={SettingScreen}
         options={{
-          headerTitle: 'Profile',
-          headerTintColor: '#F0F0F0',
-          headerTitleStyle: {fontWeight: 'bold', color: '#000000'},
-          headerStyle: {backgroundColor: '#F0F0F0', height: 100},
+          // headerTitle: 'Profile',
+          // headerTintColor: '#F0F0F0',
+          // headerTitleStyle: { fontWeight: 'bold', color: '#000000' },
+          headerShown: false,
         }}
       />
+
     </Tab.Navigator>
   );
 }

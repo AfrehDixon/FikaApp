@@ -73,7 +73,7 @@ const StackNavigation = () => {
     ),
     headerTintColor: '#fff',  // Customize header text color if needed
     headerStyle: {
-      backgroundColor: '#8B4513',  // Customize header background color if needed
+      backgroundColor: '#5E3A16',  // Customize header background color if needed
     },
   }}
       />
@@ -97,9 +97,17 @@ const StackNavigation = () => {
         name='ViewCart'
         component={ViewCartComponent}
         options={{
-          title: 'View Cart',
-          headerTintColor: '#fff',
-
+          // Custom header with title and subtitle
+          headerTitle: () => (
+            <View>
+              <Text style={styles.headerTitle}>THE FIKA TEAHOUSE - EAST LEGON</Text>
+              <Text style={styles.headerSubtitle}>12 Tripoli Street, Accra</Text>
+            </View>
+          ),
+          headerTintColor: '#fff',  // Customize header text color if needed
+          headerStyle: {
+            backgroundColor: '#5E3A16',  // Customize header background color if needed
+          },
         }}
       />
 

@@ -236,7 +236,7 @@ const VenueDetailsComponent = () => {
           id: '2',
           title: 'Fika Vanilla Americano',
           description: 'Whipped coffee, vanilla, brown sugar syrup',
-          imageSource: require('../../assets/image/coffee1.jpeg'),
+          imageSource: require('../../assets/image/fika3.png'),
         },
       ],
     },
@@ -247,13 +247,13 @@ const VenueDetailsComponent = () => {
           id: '3',
           title: 'Chocolate',
           description: 'Rich chocolate with a touch of espresso',
-          imageSource: require('../../assets/image/coffee1.jpeg'),
+          imageSource: require('../../assets/image/fikashelf2.png'),
         },
         {
           id: '4',
           title: 'Caramel Lotus',
           description: 'Caramel and lotus biscuit latte',
-          imageSource: require('../../assets/image/coffee1.jpeg'),
+          imageSource: require('../../assets/image/fikashelf3.png'),
         },
       ],
     },
@@ -295,58 +295,75 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
-  },
-  content: {
+},
+header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+    paddingTop: 80,
+    backgroundColor: '#5E3A16',
+},
+headerTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+    marginLeft: 10,
+},
+headerSubtitle: {
+    fontSize: 14,
+    color: 'white',
+    marginLeft: 10,
+},
+content: {
     flex: 1,
-    paddingHorizontal: 10,
-    paddingBottom: 80, // Space for the cart button
-  },
-  section: {
-    marginBottom: 20,
-  },
-  sectionHeader: {
+},
+section: {
+    marginVertical: 10,
+    height: '55%',
+},
+sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     marginBottom: 10,
-  },
-  sectionTitle: {
-    fontSize: 18,
+},
+sectionTitle: {
+    fontSize: 16,
     fontWeight: 'bold',
     color: 'black',
-  },
-  viewAll: {
+},
+viewAll: {
     color: '#4CAF50',
     fontSize: 14,
-  },
-  // Menu item for horizontal scrolling
-  menuItem: {
-    width:'35%', // Each item takes up a fixed width
-    marginRight: 10, // Spacing between items
+},
+menuItem: {
+    width: 200,
+    marginTop: 10,
+    marginLeft: 20,
     backgroundColor: 'white',
     borderRadius: 10,
     overflow: 'hidden',
-  },
-  menuItemImage: {
+},
+menuItemImage: {
     width: '100%',
-    height: 120,
+    height: 172,
     resizeMode: 'cover',
-  },
-  menuItemInfo: {
+},
+menuItemInfo: {
     padding: 10,
-  },
-  menuItemTitle: {
+},
+menuItemTitle: {
     fontSize: 14,
     fontWeight: 'bold',
     color: 'black',
     marginBottom: 5,
-  },
-  menuItemDescription: {
+},
+menuItemDescription: {
     fontSize: 12,
     color: '#626262',
-  },
-  addButton: {
+},
+addButton: {
     position: 'absolute',
     right: 10,
     bottom: 10,
@@ -356,23 +373,34 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  cart: {
+},
+cart: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#6B3E26',
     padding: 15,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-  cartText: {
+},
+cartText: {
     color: 'white',
     fontWeight: 'bold',
     marginLeft: 10,
-  },
+},
+cartCard: {
+    width: 350,
+    height: 58,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 20,
+    gap: 55,
+},
+cartDetails: {
+    fontSize: 18,
+    color: '#6B3E26',
+    padding: 15,
+},
 });
 
 export default VenueDetailsComponent;
