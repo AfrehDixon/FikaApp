@@ -32,55 +32,59 @@ const Checkout = () => {
     );
 
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
 
-
-            {/* Cart Items Section */}
-            <View style={styles.Overview}>
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>
-                        <MaterialIcons name="shopping-cart" size={20} color="green" /> Cart items
-                    </Text>
-                    <View style={styles.cartItem}>
-                        <Text style={styles.cartItemName}>1. Love Cocoa Coffee Cream Latte </Text>
-                        <View style={styles.priceRow}>
-                            <Text style={styles.cartItemDescription}>Fresh coconut milk, layered with whipped coffee</Text>
-                            <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+            <ScrollView style={styles.scrollView}>
+                {/* Cart Items Section */}
+                <View style={styles.Overview}>
+                    <View style={styles.section}>
+                        <View style={styles.sectionTitle}>
+                            <MaterialIcons name="redeem" size={18} color='#33AC48' />
+                            <Text style={{color: '#33AC48'}}>Cart items</Text>
                         </View>
-                    </View>
-                    <View style={styles.cartItem}>
-                        <Text style={styles.cartItemName}>2. Fika Vanilla Americano </Text>
-                        <View style={styles.priceRow}>
-                            <Text style={styles.cartItemDescription}>Whipped coffee, vanilla, brown sugar syrup</Text>
-                            <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+                        <View style={styles.cartItem}>
+                            <Text style={styles.cartItemName}>1. Love Cocoa Coffee Cream Latte </Text>
+                            <View style={styles.priceRow}>
+                                <Text style={styles.cartItemDescription}>Fresh coconut milk, layered with whipped coffee</Text>
+                                <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+                            </View>
                         </View>
+                        <View style={styles.cartItem}>
+                            <Text style={styles.cartItemName}>2. Fika Vanilla Americano </Text>
+                            <View style={styles.priceRow}>
+                                <Text style={styles.cartItemDescription}>Whipped coffee, vanilla, brown sugar syrup Whipped coffee, vanilla, brown sugar syrup</Text>
+                                <Text style={styles.cartItemPrice}>GHC 30.00</Text>
+                            </View>
+                        </View>
+                        <Text style={styles.totalPrice}>TOTAL: GHC 60.00</Text>
                     </View>
-                    <Text style={styles.totalPrice}>TOTAL: GHC 60.00</Text>
-                </View>
 
-                {/* Delivery Info Section */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>
-                        <MaterialIcons name="delivery-dining" size={20} color="brown" /> Delivery info
-                    </Text>
-                    <Text style={styles.location}>Input Delivery Location</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={deliveryLocation}
-                        onChangeText={(text) => setDeliveryLocation(text)}
-                    />
-                    <TouchableOpacity style={styles.pickupOption}>
-                        <Ionicons name="radio-button-off" size={20} color="gray" />
-                        <Text style={styles.pickupText}>Pickup</Text>
-                    </TouchableOpacity>
+                    {/* Delivery Info Section */}
+                    <View style={styles.section}>
+                        <View style={styles.sectionTitle}>
+                            <MaterialIcons name="history" size={20} color='#69332E' />
+                            <Text style={{color: '#69332E'}}>Delivery info</Text>
+                        </View>
+                        <Text style={styles.location}>Input Delivery Location</Text>
+                        <TextInput
+                            style={styles.input}
+                            value={deliveryLocation}
+                            onChangeText={(text) => setDeliveryLocation(text)}
+                        />
+                        <TouchableOpacity style={styles.pickupOption}>
+                            <Ionicons name="radio-button-off" size={20} color="gray" />
+                            <Text style={styles.pickupText}>Pickup</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
+            </ScrollView>
+            <View style={styles.fixedButtonContainer}>
                 <TouchableOpacity style={styles.payButton} onPress={toggleModal}>
                     <Text style={styles.payButtonText}>Pay GHC 60.00</Text>
                 </TouchableOpacity>
             </View>
 
 
-            {/* Pay Button */}
 
 
             {/* Modal */}
@@ -125,7 +129,7 @@ const Checkout = () => {
                     </View>
                 </View>
             </Modal>
-        </ScrollView>
+        </View>
 
     );
 };
@@ -162,6 +166,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#704321', // Brownish color for titles
         marginBottom: 10,
+        flexDirection: 'row',
+        gap: 5,
     },
     cartItem: {
         flexDirection: 'column',
@@ -177,18 +183,19 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#666',
         marginTop: 5,
+        marginLeft: 15,
     },
     cartItemPrice: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#6A0DAD',
+        color: '#421556',
         textAlign: 'right',
         marginBottom: 5,
     },
     totalPrice: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: 'green',
+        color: '#33AC48',
         textAlign: 'right',
         marginTop: 10,
     },
@@ -215,24 +222,37 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#000',
     },
+    scrollView: {
+        flex: 1,
+        paddingBottom: 80, // Add padding to account for the fixed button
+    },
+    fixedButtonContainer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: 'white',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderTopWidth: 1,
+        borderTopColor: '#e0e0e0',
+    },
     payButton: {
-        backgroundColor: '#704321', // Dark brown for button
+        backgroundColor: '#704321',
         padding: 15,
         borderRadius: 5,
         alignItems: 'center',
-        marginTop: '65%',
-        flex: 6,
+    },
+    payButtonText: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
     },
     priceRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: 5,
-    },
-    payButtonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
     },
     modalContainer: {
         flex: 1,

@@ -198,9 +198,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   StatusBar,
+  Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const MenuItem = ({ item, navigation }) => (
   <TouchableOpacity
@@ -213,7 +216,7 @@ const MenuItem = ({ item, navigation }) => (
       <Text style={styles.menuItemDescription}>{item.description}</Text>
     </View>
     <TouchableOpacity style={styles.addButton}>
-      <Icon name="add" size={24} color="#4CAF50" />
+      <Image source={require('../../assets/image/lock.png')}/>
     </TouchableOpacity>
   </TouchableOpacity>
 );
@@ -256,6 +259,23 @@ const VenueDetailsComponent = () => {
           imageSource: require('../../assets/image/fikashelf3.png'),
         },
       ],
+    },    
+    {
+      title: 'Fruit',
+      data: [
+        {
+          id: '4',
+          title: 'Chocolate',
+          description: 'Rich chocolate with a touch of espresso',
+          imageSource: require('../../assets/image/fikashelf2.png'),
+        },
+        {
+          id: '5',
+          title: 'Caramel Lotus',
+          description: 'Caramel and lotus biscuit latte',
+          imageSource: require('../../assets/image/fikashelf3.png'),
+        },
+      ],
     },
   ];
 
@@ -273,9 +293,9 @@ const VenueDetailsComponent = () => {
               </TouchableOpacity>
             </View>
 
-            {/* Horizontal Scroll for each section */}
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {section.data.map((item) => (
+            {/* Horizontal Scroll with overflow visible */}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ overflow: 'visible' }}>
+              {section.data.map((item, index) => (
                 <MenuItem key={item.id} item={item} navigation={navigation} />
               ))}
             </ScrollView>
@@ -295,75 +315,55 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
-},
-header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 20,
-    paddingTop: 80,
-    backgroundColor: '#5E3A16',
-},
-headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-    marginLeft: 10,
-},
-headerSubtitle: {
-    fontSize: 14,
-    color: 'white',
-    marginLeft: 10,
-},
-content: {
+  },
+  content: {
     flex: 1,
-},
-section: {
+    paddingHorizontal: '5%', // Add padding for responsiveness
+  },
+  section: {
     marginVertical: 10,
-    height: '55%',
-},
-sectionHeader: {
+  },
+  sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
     marginBottom: 10,
-},
-sectionTitle: {
+  },
+  sectionTitle: {
     fontSize: 16,
     fontWeight: 'bold',
     color: 'black',
-},
-viewAll: {
+  },
+  viewAll: {
     color: '#4CAF50',
     fontSize: 14,
-},
-menuItem: {
-    width: 200,
-    marginTop: 10,
-    marginLeft: 20,
+  },
+  menuItem: {
+    width: SCREEN_WIDTH * 0.44,
+    marginRight: 10,
     backgroundColor: 'white',
     borderRadius: 10,
-    overflow: 'hidden',
-},
-menuItemImage: {
+    overflow: 'hidden', // Ensure border radius is applied
+  },
+  menuItemImage: {
     width: '100%',
-    height: 172,
+    height: SCREEN_WIDTH * 0.5,
     resizeMode: 'cover',
-},
-menuItemInfo: {
+  },
+  menuItemInfo: {
     padding: 10,
-},
-menuItemTitle: {
+  },
+  menuItemTitle: {
     fontSize: 14,
     fontWeight: 'bold',
     color: 'black',
     marginBottom: 5,
-},
-menuItemDescription: {
+  },
+  menuItemDescription: {
     fontSize: 12,
     color: '#626262',
-},
-addButton: {
+  },
+  addButton: {
     position: 'absolute',
     right: 10,
     bottom: 10,
@@ -373,34 +373,21 @@ addButton: {
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-},
-cart: {
+  },
+  cart: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#6B3E26',
     padding: 15,
-},
-cartText: {
+    width: '100%', // Full-width button
+  },
+  cartText: {
     color: 'white',
     fontWeight: 'bold',
     marginLeft: 10,
-},
-cartCard: {
-    width: 350,
-    height: 58,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 10,
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginTop: 20,
-    gap: 55,
-},
-cartDetails: {
-    fontSize: 18,
-    color: '#6B3E26',
-    padding: 15,
-},
+  },
 });
 
 export default VenueDetailsComponent;
+

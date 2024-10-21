@@ -14,7 +14,7 @@ const Loyalty = () => {
   return (
     <ScrollView style={styles.container}>
       {/* Loyalty Card */}
-      <Text style={styles.title}>Profile</Text>
+      <Text style={styles.title}>Loyalty</Text>
       <View style={styles.loyaltyCard}>
         <View
           style={{
@@ -66,19 +66,19 @@ const Loyalty = () => {
         </View>
         <View style={styles.rewardDetails}>
           <Text style={styles.rewardText}>Hydrate Station</Text>
-          <View style={{display:'flex', gap: 5, flexDirection: 'row' ,margin:5}}>
+          <View style={{ display: 'flex', gap: 5, flexDirection: 'row', margin: 5 }}>
             <View style={styles.radioButton}>
               {/* <View style={styles.radioButtonInner} /> */}
             </View>
-   <Text>60/100</Text>
-</View>
-         
+            <Text>60/100</Text>
+          </View>
+
         </View>
         <View>
           {/* {selectedSize === size.name && ( */}
-            <View style={styles.radioButton}>
-              <View style={styles.radioButtonInner} />
-            </View>
+          <View style={styles.radioButton}>
+            <View style={styles.radioButtonInner} />
+          </View>
           {/* )} */}
         </View>
         {/* <View>
@@ -95,17 +95,24 @@ const Loyalty = () => {
         </View>
         <View style={styles.rewardDetails}>
           <Text style={styles.rewardText}>Bubble Tea</Text>
-
-          <Text>20/100</Text>
+          <View style={{ display: 'flex', gap: 5, flexDirection: 'row', margin: 5 }}>
+            <View style={styles.radioButton}>
+              {/* <View style={styles.radioButtonInner} /> */}
+            </View>
+            <Text>20/100</Text>
+          </View>
         </View>
       </View>
 
       {/* Transactions Button */}
       <TouchableOpacity style={styles.transactionsButton}>
+        <View style={styles.iconContainer}>
+          <Image source={require('../assets/image/orderIcon.png')} style={styles.icon}/>
+        </View>
         <Text style={styles.transactionsText}>Transactions</Text>
 
 
-<Icon name="chevron-right" size={24} color="#1E1E1E" />
+        <Icon name="chevron-right" size={24} color="#1E1E1E" />
 
       </TouchableOpacity>
     </ScrollView>
@@ -239,6 +246,20 @@ const styles = StyleSheet.create({
     color: '#1E1E1E',
     flex: 1,
   },
+  iconContainer: {
+    marginRight: 15, // Increased space between icon and details
+    width: 31,
+    height: 31,
+    borderRadius: 25, // Rounded corners for the icon card
+    backgroundColor: '#6B3E26', // Background color for the icon card
+    justifyContent: 'center',
+    alignItems: 'center', // Centered text inside the icon card
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    // borderRadius: 25,
+},
 });
 
 export default Loyalty;

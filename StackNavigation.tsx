@@ -33,7 +33,11 @@ const StackNavigation = () => {
         name='Feedback'
         component={FeedbackScreen}
         options={{
-          title: 'Feedback',headerTintColor: '#fff',
+          title: 'Feedback',
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#5E3A16',  // Customize header background color if needed
+          },
         }}
       />
 
@@ -50,6 +54,9 @@ const StackNavigation = () => {
         component={PaymentMethod}
         options={{
           title: 'Payment Methods',headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#5E3A16',  // Customize header background color if needed
+          },
         }}
       />
       <Stack.Screen
@@ -58,6 +65,9 @@ const StackNavigation = () => {
       options={{
         title: 'Order History',
         headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#5E3A16',  // Customize header background color if needed
+        },
       }}
       />
       <Stack.Screen
@@ -91,6 +101,9 @@ const StackNavigation = () => {
         options={{
           title: 'Checkout',
           headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#5E3A16',
+          },
         }}
       />
       <Stack.Screen

@@ -77,11 +77,13 @@ export function HomeScreen() {
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.iconButton}>
             <Text style={styles.iconButtonText}>Refer a friend</Text>
-            <Icon name="people-outline" size={24} color="#FFF" />
+            <Image style={styles.homeIcon} source={require('../assets/image/friends.png')}/>
+            {/* <Icon name="people-outline" size={24} color="#FFF" /> */}
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
-            <Icon name="qr-code-outline" size={24} color="#FFF" />
-            <Text style={styles.iconButtonText}>Your QR Code</Text>
+            <Icon name="qr-code-outline" size={44} color="#FFF" />
+            <Image style={styles.homeIcon} source={require('../assets/image/fika4.png')}/>
+            {/* <Text style={styles.iconButtonText}>Your QR Code</Text> */}
           </TouchableOpacity>
         </View>
 
@@ -159,6 +161,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  homeIcon: {
+    width: 57,
+    height: 57,
+    marginRight: 20,
+  },
   buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -173,8 +180,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     display: 'flex',
     flexDirection: 'row',
-    gap: 30,
+    gap: 20,
     height: 90,
+    justifyContent: 'space-between',
   },
   iconButtonText: {
     color: '#fff',
