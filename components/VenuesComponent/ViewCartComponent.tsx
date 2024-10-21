@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const MenuItem = ({ title, description, imageSource }) => (
     <View style={styles.menuItem}>
@@ -10,7 +12,7 @@ const MenuItem = ({ title, description, imageSource }) => (
             <Text style={styles.menuItemDescription}>{description}</Text>
         </View>
         <TouchableOpacity style={styles.addButton}>
-            <Icon name="add" size={24} color="#4CAF50" />
+        <Image source={require('../../assets/image/lock.png')}/>
         </TouchableOpacity>
     </View>
 );
@@ -18,13 +20,6 @@ const MenuItem = ({ title, description, imageSource }) => (
 const ViewCartComponent = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            {/* <StatusBar
-                barStyle="light-content"
-                backgroundColor="#5E3A16"
-                translucent={true}
-            /> */}
-
-
             <ScrollView style={styles.content}>
                 <View style={styles.section}>
                     <View style={styles.sectionHeader}>
@@ -57,12 +52,12 @@ const ViewCartComponent = ({ navigation }) => {
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                         <MenuItem
                             title="Chocolatev"
-                            description="Rich chocolate with a touch of espresso"  // Add description if available
+                            description="Rich chocolate with a touch of espresso"
                             imageSource={require('../../assets/image/fikashelf2.png')}
                         />
                         <MenuItem
                             title="Caramel Lotus"
-                            description="Caramel and lotus biscuit latte"  // Add description if available
+                            description="Caramel and lotus biscuit latte"
                             imageSource={require('../../assets/image/fikashelf3.png')}
                         />
                     </ScrollView>
@@ -70,7 +65,7 @@ const ViewCartComponent = ({ navigation }) => {
             </ScrollView>
 
             <View style={styles.cart}>
-                <TouchableOpacity style={styles.cartCard} onPress={()=> navigation.navigate('Checkout')}>
+                <TouchableOpacity style={styles.cartCard} onPress={() => navigation.navigate('Checkout')}>
                     <Text style={styles.cartDetails}>2</Text>
                     <Text style={styles.cartDetails}>View Cart</Text>
                     <Text style={styles.cartDetails}>GHC 30</Text>
@@ -85,30 +80,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f0f0f0',
     },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 20,
-        paddingTop: 80,
-        backgroundColor: '#5E3A16',
-    },
-    headerTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: 'white',
-        marginLeft: 10,
-    },
-    headerSubtitle: {
-        fontSize: 14,
-        color: 'white',
-        marginLeft: 10,
-    },
     content: {
         flex: 1,
     },
     section: {
         marginVertical: 10,
-        height: '55%',
     },
     sectionHeader: {
         flexDirection: 'row',
@@ -127,8 +103,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     menuItem: {
-        width: 200,
-        marginTop: 10,
+        width: SCREEN_WIDTH * 0.43,
         marginLeft: 20,
         backgroundColor: 'white',
         borderRadius: 10,
@@ -136,7 +111,7 @@ const styles = StyleSheet.create({
     },
     menuItemImage: {
         width: '100%',
-        height: 172,
+        height: SCREEN_WIDTH * 0.5,
         resizeMode: 'cover',
     },
     menuItemInfo: {
@@ -170,25 +145,20 @@ const styles = StyleSheet.create({
         backgroundColor: '#6B3E26',
         padding: 15,
     },
-    cartText: {
-        color: 'white',
-        fontWeight: 'bold',
-        marginLeft: 10,
-    },
     cartCard: {
-        width: 350,
+        width: SCREEN_WIDTH * 0.9,
+        maxWidth: 350,
         height: 58,
         backgroundColor: '#f0f0f0',
         borderRadius: 10,
-        alignItems: 'center',
         flexDirection: 'row',
-        marginTop: 20,
-        gap: 55,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 15,
     },
     cartDetails: {
         fontSize: 18,
         color: '#6B3E26',
-        padding: 15,
     },
 });
 

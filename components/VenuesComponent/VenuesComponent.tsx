@@ -51,6 +51,7 @@ const VenuesComponent: React.FC = () => {
       <View style={styles.row}>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Refer a Friend</Text>
+          <Image source={require('../../assets/image/friends.png')}/>
           <Icon name="person-add-outline" size={24} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
