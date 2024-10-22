@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Tabnavigation from './Tabnavigation'; // Bottom Tab Navigator
-import  PaymentMethod from './screens/PaymentMethod'; // Payment Method screen
+import PaymentMethod from './screens/PaymentMethod'; // Payment Method screen
 import OrderHistory from './screens/OrderHistory';
 import FeedbackScreen from './screens/FeebackScreen';
 import VenueDetailsComponent from './components/VenuesComponent/VenueDetailsComponent';
@@ -17,7 +17,7 @@ const StackNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: '#8B4513' ,height: 100},
+        headerStyle: { backgroundColor: '#8B4513', height: 100 },
         headerTintColor: 'red',
         headerTitleStyle: { fontWeight: 'bold' },
         headerStatusBarHeight: 40,
@@ -30,7 +30,7 @@ const StackNavigation = () => {
       />
 
       <Stack.Screen
-        name='Feedback'
+        name="Feedback"
         component={FeedbackScreen}
         options={{
           title: 'Feedback',
@@ -53,50 +53,49 @@ const StackNavigation = () => {
         name="PaymentMethod"
         component={PaymentMethod}
         options={{
-          title: 'Payment Methods',headerTintColor: '#fff',
+          title: 'Payment Methods', headerTintColor: '#fff',
           headerStyle: {
             backgroundColor: '#5E3A16',  // Customize header background color if needed
           },
         }}
       />
       <Stack.Screen
-      name='OrderHistory'
-      component={OrderHistory}
-      options={{
-        title: 'Order History',
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: '#5E3A16',  // Customize header background color if needed
-        },
-      }}
+        name="OrderHistory"
+        component={OrderHistory}
+        options={{
+          title: 'Order History',
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#5E3A16',  // Customize header background color if needed
+          },
+        }}
       />
       <Stack.Screen
-  name='VenueDetails'
-  component={VenueDetailsComponent}
-  options={{
-    // Custom header with title and subtitle
-    headerTitle: () => (
-      <View>
-        <Text style={styles.headerTitle}>THE FIKA TEAHOUSE - EAST LEGON</Text>
-        <Text style={styles.headerSubtitle}>12 Tripoli Street, Accra</Text>
-      </View>
-    ),
-    headerTintColor: '#fff',  // Customize header text color if needed
-    headerStyle: {
-      backgroundColor: '#5E3A16',  // Customize header background color if needed
-    },
-  }}
+        name="VenueDetails"
+        component={VenueDetailsComponent}
+        options={{
+          headerTitle: () => (
+            <View>
+              <Text style={styles.headerTitle}>THE FIKA TEAHOUSE - EAST LEGON</Text>
+              <Text style={styles.headerSubtitle}>12 Tripoli Street, Accra</Text>
+            </View>
+          ),
+          headerTintColor: '#fff',  // Customize header text color if needed
+          headerStyle: {
+            backgroundColor: '#5E3A16',  // Customize header background color if needed
+          },
+        }}
       />
-      
-      <Stack.Screen 
-        name='CartDetails'
-        component={CartDetailsComponent} 
+
+      <Stack.Screen
+        name="CartDetails"
+        component={CartDetailsComponent}
         options={{
           headerShown: false,
         }}
       />
-      <Stack.Screen 
-        name='Checkout'
+      <Stack.Screen
+        name="Checkout"
         component={Checkout}
         options={{
           title: 'Checkout',
@@ -107,7 +106,7 @@ const StackNavigation = () => {
         }}
       />
       <Stack.Screen
-        name='ViewCart'
+        name="ViewCart"
         component={ViewCartComponent}
         options={{
           // Custom header with title and subtitle
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
   headerSubtitle: {
     fontSize: 14,        // Smaller font for the subtitle
     color: '#fff',       // White color for the subtitle
-     // Center align the text
+    // Center align the text
   },
 });
 
