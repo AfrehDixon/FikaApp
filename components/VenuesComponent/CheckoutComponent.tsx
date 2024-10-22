@@ -39,13 +39,13 @@ const Checkout = () => {
                 <View style={styles.Overview}>
                     <View style={styles.section}>
                         <View style={styles.sectionTitle}>
-                            <MaterialIcons name="redeem" size={18} color='#33AC48' />
+                            <MaterialIcons name="redeem" size={18} color="#33AC48" />
                             <Text style={{color: '#33AC48'}}>Cart items</Text>
                         </View>
                         <View style={styles.cartItem}>
                             <Text style={styles.cartItemName}>1. Love Cocoa Coffee Cream Latte </Text>
                             <View style={styles.priceRow}>
-                                <Text style={styles.cartItemDescription}>Fresh coconut milk, layered with whipped coffee</Text>
+                                <Text style={styles.cartItemDescription}>Fresh coconut milk, layered with whipped coffee Fresh coconut milk, layered with whipped coffee</Text>
                                 <Text style={styles.cartItemPrice}>GHC 30.00</Text>
                             </View>
                         </View>
@@ -179,7 +179,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#000',
     },
+    priceRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 5,
+    },
     cartItemDescription: {
+        flex: 1,
         fontSize: 12,
         color: '#666',
         marginTop: 5,
@@ -190,7 +197,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#421556',
         textAlign: 'right',
-        marginBottom: 5,
     },
     totalPrice: {
         fontSize: 16,
@@ -247,12 +253,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 18,
         fontWeight: 'bold',
-    },
-    priceRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 5,
     },
     modalContainer: {
         flex: 1,

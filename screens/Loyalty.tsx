@@ -8,44 +8,29 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
-// import Icon from 'react-native-vector-icons/Ionicons';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 const Loyalty = () => {
+  // Simulating reward progress (adjust values as per actual logic)
+  const hydrateProgress = 60; // 60% progress
+  const bubbleTeaProgress = 20; // 20% progress
+
   return (
     <ScrollView style={styles.container}>
       {/* Loyalty Card */}
       <Text style={styles.title}>Loyalty</Text>
       <View style={styles.loyaltyCard}>
-        <View
-          style={{
-            width: 40,
-            height: 40,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 50,
-            alignSelf: 'center',
-            marginBottom: 20,
-            // marginTop: 40,
-
-            // Half the width and height to make it circular
-          }}>
+        <View style={styles.logoContainer}>
           <Image
-            source={require('../assets/image/fika5.png')} // Path to your image
-            style={{
-              width: 40, // Slightly smaller than the container to show the red background as a border
-              height: 40,
-              borderRadius: 45, // Half of the width/height to make the image circular
-              // borderWidth: 5, // Adds a border around the image
-              borderColor: 'white',
-              alignSelf: 'center ', // Border color (you can change it if needed)
-            }}
-            resizeMode="cover" // Ensures the image covers the entire circle
+            source={require('../assets/image/fika5.png')}
+            style={styles.logo}
+            resizeMode="cover"
           />
         </View>
         <View style={styles.cardHolder}>
           <Image
             style={styles.qrCode}
-            source={require('../assets/image/qrcode.png')} // Replace with your QR code image
+            source={require('../assets/image/qrcode.png')}
           />
         </View>
         <Text style={styles.tapToScan}>Tap to scan</Text>
@@ -61,18 +46,22 @@ const Loyalty = () => {
         <View style={styles.rewardCard}>
           <Image
             style={styles.rewardImage}
-            source={require('../assets/image/fika4.png')} // Replace with your drink image
+            source={require('../assets/image/fika4.png')}
           />
         </View>
         <View style={styles.rewardDetails}>
           <Text style={styles.rewardText}>Hydrate Station</Text>
-          <View style={{ display: 'flex', gap: 5, flexDirection: 'row', margin: 5 }}>
-            <View style={styles.radioButton}>
-              {/* <View style={styles.radioButtonInner} /> */}
-            </View>
-            <Text>60/100</Text>
+          <View style={styles.circularLoaderContainer}>
+            <AnimatedCircularProgress
+              size={30}
+              width={5}
+              fill={hydrateProgress} // Progress value for Hydrate Station
+              tintColor="#4A2B20"
+              backgroundColor="#E0E0E0"
+            />
+            {/* Progress text placed beside the loader */}
+            <Text style={styles.progressText}>60/100</Text>
           </View>
-
         </View>
         <View>
           {/* {selectedSize === size.name && ( */}
@@ -81,25 +70,27 @@ const Loyalty = () => {
           </View>
           {/* )} */}
         </View>
-        {/* <View>
-          <View style={{borderColor: 'red'  , borderStyle: 'dashed' ,borderWidth: 10}}> </View>
-        </View> */}
       </View>
 
       <View style={styles.rewardItem}>
         <View style={styles.rewardCard}>
           <Image
             style={styles.rewardImage}
-            source={require('../assets/image/fika4.png')} // Replace with your drink image
+            source={require('../assets/image/fika4.png')}
           />
         </View>
         <View style={styles.rewardDetails}>
           <Text style={styles.rewardText}>Bubble Tea</Text>
-          <View style={{ display: 'flex', gap: 5, flexDirection: 'row', margin: 5 }}>
-            <View style={styles.radioButton}>
-              {/* <View style={styles.radioButtonInner} /> */}
-            </View>
-            <Text>20/100</Text>
+          <View style={styles.circularLoaderContainer}>
+            <AnimatedCircularProgress
+              size={30}
+              width={5}
+              fill={bubbleTeaProgress} // Progress value for Bubble Tea
+              tintColor="#4A2B20"
+              backgroundColor="#E0E0E0"
+            />
+            {/* Progress text placed beside the loader */}
+            <Text style={styles.progressText}>20/100</Text>
           </View>
         </View>
       </View>
@@ -107,13 +98,13 @@ const Loyalty = () => {
       {/* Transactions Button */}
       <TouchableOpacity style={styles.transactionsButton}>
         <View style={styles.iconContainer}>
-          <Image source={require('../assets/image/orderIcon.png')} style={styles.icon}/>
+          <Image
+            source={require('../assets/image/orderIcon.png')}
+            style={styles.icon}
+          />
         </View>
         <Text style={styles.transactionsText}>Transactions</Text>
-
-
         <Icon name="chevron-right" size={24} color="#1E1E1E" />
-
       </TouchableOpacity>
     </ScrollView>
   );
@@ -128,40 +119,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    //  marginBottom: 5,
     marginTop: 15,
     color: '#000',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  radioButton: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#4A2B20',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  radioButtonInner: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: '#4A2B20',
-  },
-  headerIcons: {
-    flexDirection: 'row',
-  },
-  iconSpacing: {
-    marginLeft: 20,
   },
   loyaltyCard: {
     backgroundColor: '#8B4513',
@@ -169,6 +128,21 @@ const styles = StyleSheet.create({
     padding: 20,
     marginTop: 20,
     alignItems: 'center',
+  },
+  logoContainer: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+  logo: {
+    width: 40,
+    height: 40,
+    borderRadius: 45,
+    borderColor: 'white',
   },
   cardHolder: {
     backgroundColor: '#fff',
@@ -218,7 +192,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 30,
     backgroundColor: '#69332E',
-    // padding: 2,
   },
   rewardImage: {
     width: 50,
@@ -232,6 +205,16 @@ const styles = StyleSheet.create({
   rewardText: {
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  circularLoaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10, // space between loader and text
+  },
+  progressText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#4A2B20',
   },
   transactionsButton: {
     flexDirection: 'row',
@@ -247,19 +230,33 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   iconContainer: {
-    marginRight: 15, // Increased space between icon and details
+    marginRight: 15,
     width: 31,
     height: 31,
-    borderRadius: 25, // Rounded corners for the icon card
-    backgroundColor: '#6B3E26', // Background color for the icon card
+    borderRadius: 25,
+    backgroundColor: '#6B3E26',
     justifyContent: 'center',
-    alignItems: 'center', // Centered text inside the icon card
+    alignItems: 'center',
   },
   icon: {
     width: 20,
     height: 20,
-    // borderRadius: 25,
-},
+  },
+  radioButton: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#4A2B20',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  radioButtonInner: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#4A2B20',
+  },
 });
 
 export default Loyalty;
