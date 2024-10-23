@@ -7,7 +7,6 @@ export function SettingScreen() {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar hidden={true} />
       <Text style={styles.title}>Profile</Text>
       <View style={styles.profileContainer}>
         <View style={styles.profileIcon}>
@@ -18,7 +17,7 @@ export function SettingScreen() {
       </View>
 
       <View style={styles.menuContainer}>
-        <TouchableOpacity style={styles.menuItem} onPress={()=> navigation.navigate("PaymentMethod")}>
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate("PaymentMethod")}>
           <View style={styles.menuCard}>
             <Icon name="credit-card" size={20} color="#f5f5f5" />
           </View>
@@ -32,7 +31,7 @@ export function SettingScreen() {
           <Text style={styles.menuText}>Order History</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem} onPress={()=> navigation.navigate("Feedback")}>
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate("Feedback")}>
           <View style={styles.menuCard}>
             <Icon name="comment" size={20} color="#f5f5f5" />
           </View>
