@@ -116,6 +116,8 @@ import {HomeScreen} from './screens/HomeScreen';
 import {SettingScreen} from './screens/SettingScreen';
 import Loyalty from './screens/Loyalty';
 import {RouteProp} from '@react-navigation/native';
+import SplashScreen from './screens/SplashScreen';
+// import SplashScreen from './screens/splashScreen';
 
 const Tab = createBottomTabNavigator();
 Dimensions.get('window');
@@ -287,6 +289,11 @@ export default function TabNavigation() {
       <Tab.Screen
         name="Profile"
         component={SettingScreen}
+        options={{headerShown: false}}
+      />      
+      <Tab.Screen
+        name="SplashScreen"
+        component={SplashScreen}
         options={{headerShown: false}}
       />
     </Tab.Navigator>

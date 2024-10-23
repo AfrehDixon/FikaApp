@@ -9,6 +9,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import CartDetailsComponent from './components/VenuesComponent/CartDetailsComponent';
 import Checkout from './components/VenuesComponent/CheckoutComponent';
 import ViewCartComponent from './components/VenuesComponent/ViewCartComponent';
+import SplashScreen from './screens/SplashScreen';
+import LoginScreen from './screens/LoginScreen';
+import SignUpScreen from './screens/SignUpScreen';
 
 
 const Stack = createStackNavigator();
@@ -95,10 +98,11 @@ const StackNavigation = () => {
         }}
       />
       <Stack.Screen
-        name="Checkout"
-        component={Checkout}
+        name="SignUp"
+        component={SignUpScreen}
         options={{
-          title: 'Checkout',
+          headerShown: false,
+          // title: 'Checkout',
           headerTintColor: '#fff',
           headerStyle: {
             backgroundColor: '#5E3A16',
