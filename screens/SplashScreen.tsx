@@ -1,16 +1,18 @@
 import React from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, StatusBar } from 'react-native';
 
 const SplashScreen = () => {
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor="#5E3A16" barStyle="light-content" />
       {/* Centered Logo */}
       <View style={styles.logoContainer}>
         <Image
           source={require('../assets/image/fika5.png')}
           style={styles.logo}
+          resizeMode="contain"
         />
       </View>
 
@@ -18,7 +20,10 @@ const SplashScreen = () => {
       <View style={[styles.drinksContainer, { width: screenWidth }]}>
         <Image
           source={require('../assets/image/splashImage.png')}
-          style={[styles.drinksImage, { width: screenWidth * 1.0, height: screenHeight * 0.25 }]}
+          style={[
+            styles.drinksImage,
+            { width: screenWidth * 1.0, height: screenHeight * 0.25 },
+          ]}
           resizeMode="contain"
         />
       </View>
@@ -29,8 +34,8 @@ const SplashScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#5c3a1e', // Match the brown background color from the image
-    justifyContent: 'space-between', // Pushes content to top and bottom
+    backgroundColor: '#5E3A16',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   logoContainer: {
@@ -40,15 +45,15 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 150,
-    borderRadius: 75, // Circular shape
+    borderRadius: 75,
   },
   drinksContainer: {
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingBottom: -20, // Bottom padding for spacing
+    marginBottom: 0, // Changed from paddingBottom: -20 to avoid negative padding
   },
   drinksImage: {
-    // The size will now adjust based on screen dimensions
+    // Size is dynamically set through inline styles
   },
 });
 

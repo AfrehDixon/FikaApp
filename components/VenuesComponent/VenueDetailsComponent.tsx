@@ -281,7 +281,7 @@ const VenueDetailsComponent = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#5E3A16" translucent={true} />
+      <StatusBar barStyle="light-content" backgroundColor="#5E3A16" translucent={true} hidden={true} />
 
       <ScrollView style={styles.content}>
         {sections.map((section) => (
