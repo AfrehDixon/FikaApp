@@ -65,7 +65,7 @@ const ViewCartComponent = ({ navigation }) => {
             </ScrollView>
 
             <View style={styles.cart}>
-                <TouchableOpacity style={styles.cartCard} onPress={() => navigation.navigate('SignUp')}>
+                <TouchableOpacity style={styles.cartCard} onPress={() => navigation.navigate('checkout')}>
                     <Text style={styles.cartDetails}>2</Text>
                     <Text style={styles.cartDetails}>View Cart</Text>
                     <Text style={styles.cartDetails}>GHC 30</Text>

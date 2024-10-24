@@ -1,13 +1,33 @@
+// import React from 'react';
+// import { NavigationContainer } from '@react-navigation/native';
+// import RootNavigation from './RootNavigation';
+
+
+// export default function App() {
+//   return (
+//     <NavigationContainer>
+//       <RootNavigation />
+//     </NavigationContainer>
+//   );
+// }
+
+
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import StackNavigation from './StackNavigation';
-// import Tabnavigation from './Tabnavigation';
+import RootNavigator from './RootNavigation';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-
-export default function App() {
+const App = () => {
   return (
-    <NavigationContainer>
-      <StackNavigation />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
-}
+};
+
+export default App;
