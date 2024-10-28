@@ -1,114 +1,124 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, StatusBar } from 'react-native';
-
-const orders = [
-    {
-        id: '1',
-        icon: require('../assets/image/orderIcon.png'),
-        name: 'Vanilla Cone',
-        description: 'Classic vanilla ice cream in a crispy cone.',
-        price: '20 GHS',
-        paymentType: 'Credit Card',
-        deliveryTo: 'Accra',
-        status: 'Delivered',
-    },
-    {
-        id: '2',
-        icon: require('../assets/image/orderIcon.png'),
-        name: 'Chocolate Scoop',
-        description: 'Rich chocolate ice cream with a smooth texture.',
-        price: '15 GHS',
-        paymentType: 'Mobile Money',
-        deliveryTo: 'Kumasi',
-        status: 'Pending',
-    },
-    {
-        id: '3',
-        icon: require('../assets/image/orderIcon.png'),
-        name: 'Strawberry Delight',
-        description: 'Fresh strawberry ice cream bursting with flavor.',
-        price: '30 GHS',
-        paymentType: 'Cash on Delivery',
-        deliveryTo: 'Takoradi',
-        status: 'Shipped',
-    },
-    // {
-    //     id: '4',
-    //     icon: 'https://via.placeholder.com/50',
-    //     name: 'Mint Chocolate Chip',
-    //     description: 'Cool mint ice cream with rich chocolate chips.',
-    //     price: '25 GHS',
-    //     paymentType: 'Credit Card',
-    //     deliveryTo: 'Tamale',
-    //     status: 'Delivered',
-    // },
-];
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, FlatList, Image, StatusBar, ActivityIndicator } from 'react-native';
 
 const OrderHistory = () => {
+    const [loading, setLoading] = useState(false);
+    const [orderHistory, setOrderHistory] = useState([]);
+
+    const fetchOrderHistory = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch('https://fiakapi-1.onrender.com/api/orders/user/60d0fe4f5311236168a109ca', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const responseData = await response.json();
+            // console.log('Order history fetched successfully:', responseData);
+
+            if (responseData.status === "success" && responseData.data) {
+                const orders = responseData.data.map(order => ({
+                    id: order._id,
+                    icon: require('../assets/image/orderIcon.png'),
+                    name: order.product?.name || 'Unknown Item',
+                    description: order.product?.description || 'No description available',
+                    price: order.product?.price ? `GH₵ ${order.product.price}` : 'Price not available',
+                    paymentType: order.paymentType,
+                    deliveryTo: order.deliveryAddress,
+                    status: order.status,
+                }));
+                setOrderHistory(orders);
+            } else {
+                console.error("Error fetching orders:", responseData.message || "Unknown error");
+                setOrderHistory([]);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setOrderHistory([]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchOrderHistory();
+    }, []);
+
     const renderItem = ({ item }) => (
-        <View style={{ backgroundColor: '#F0F0F0', gap: 7 }}>
-            <View style={styles.card}>
-                <StatusBar hidden={true} />
-                <View style={styles.iconContainer}>
-                    <Image source={item.icon} style={styles.icon} />
+        <View style={styles.card}>
+            <StatusBar hidden={true} />
+            <View style={styles.iconContainer}>
+                <Image source={item.icon} style={styles.icon} />
+            </View>
+            <View style={styles.detailsContainer}>
+                <Text style={styles.name}>{item.name}</Text>
+                <View style={styles.descriptionPriceContainer}>
+                    <Text style={styles.description}>{item.description}</Text>
+                    <Text style={styles.price}>{item.price}</Text>
                 </View>
-                <View style={styles.detailsContainer}>
-                    <Text style={styles.name}>{item.name}</Text>
-                    <View style={styles.descriptionPriceContainer}>
-                        <Text style={styles.description}>{item.description}</Text>
-                        <Text style={styles.price}>{item.price}</Text>
-                    </View>
-                    <View style={styles.orderstatus}>
-                        <Text style={styles.paymentType}>Payment Type: <Text style={styles.paymentTypeValue}>{item.paymentType}</Text></Text>
-                        <Text style={styles.deliveryTo}>Delivery to: <Text style={styles.deliveryToValue}>{item.deliveryTo}</Text></Text>
-                        <Text style={styles.status}>Status: <Text style={styles.statusValue}>{item.status}</Text></Text>
-                    </View>
+                <View style={styles.orderstatus}>
+                    <Text style={styles.paymentType}>Payment Type: <Text style={styles.paymentTypeValue}>{item.paymentType}</Text></Text>
+                    <Text style={styles.deliveryTo}>Delivery to: <Text style={styles.deliveryToValue}>{item.deliveryTo}</Text></Text>
+                    <Text style={styles.status}>Status: <Text style={styles.statusValue}>{item.status}</Text></Text>
                 </View>
             </View>
         </View>
     );
 
     return (
-        <View>
-            <FlatList
-                data={orders}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-                contentContainerStyle={styles.listContainer} // Adds padding to the FlatList
-            />
+        <View style={styles.container}>
+            {loading ? (
+                <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />
+            ) : (
+                <FlatList
+                    data={orderHistory}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    contentContainerStyle={styles.listContainer}
+                    ListEmptyComponent={<Text style={styles.emptyText}>History is empty</Text>}
+                />
+            )}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#F0f0f0',
+        padding: 10,
+    },
+    loader: {
+        marginTop: 20,
+    },
     listContainer: {
-        padding: 10, // Add padding around the entire FlatList
+        paddingBottom: 20,
     },
     card: {
         flexDirection: 'row',
-        padding: 15, // Increased padding for more space
-        marginVertical: 7, // Increased vertical margin for spacing between cards
+        padding: 15,
+        marginVertical: 7,
         backgroundColor: '#FFFFFF',
         borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
-        overflow: 'hidden', // Helps with rounded corners
+        margin: 10,
     },
     iconContainer: {
-        marginRight: 15, // Increased space between icon and details
+        marginRight: 15,
         width: 50,
         height: 50,
-        borderRadius: 25, // Rounded corners for the icon card
-        backgroundColor: '#6B3E26', // Background color for the icon card
+        borderRadius: 25,
+        backgroundColor: '#6B3E26',
         justifyContent: 'center',
-        alignItems: 'center', // Centered text inside the icon card
+        alignItems: 'center',
     },
     icon: {
         width: 30,
         height: 30,
-        // borderRadius: 25,
     },
     detailsContainer: {
         flex: 1,
@@ -123,43 +133,48 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginVertical: 8, // Added margin for spacing around the description
+        marginVertical: 8,
     },
     description: {
         fontSize: 14,
         color: '#666',
         flex: 1,
-        marginRight: 10, // Space between description and price
+        marginRight: 10,
     },
     orderstatus: {
-        // marginTop: 5,
-        gap: 5,// Space between description and order status
+        gap: 5,
     },
     price: {
         fontSize: 14,
         fontWeight: 'bold',
-        color: '#421556', // Color for price
+        color: '#421556',
     },
     paymentType: {
         fontSize: 12,
         color: '#666',
     },
     paymentTypeValue: {
-        color: '#DEC74C', // Color for payment type
+        color: '#DEC74C',
     },
     deliveryTo: {
         fontSize: 12,
         color: '#666',
     },
     deliveryToValue: {
-        color: '#007BFF', // Optional color for delivery to
+        color: '#007BFF',
     },
     status: {
         fontSize: 12,
         color: '#666',
     },
     statusValue: {
-        color: '#00AF8A', // Color for status
+        color: '#00AF8A',
+    },
+    emptyText: {
+        textAlign: 'center',
+        fontSize: 16,
+        color: '#666',
+        marginTop: 20,
     },
 });
 

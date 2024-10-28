@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -10,15 +10,40 @@ import {
   StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 export function HomeScreen() {
+  const [venues, setVenues] = useState([]); // Initialize venues as an empty array
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://fiakapi-1.onrender.com/api/venues/get', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      if (data.venues) {
+        setVenues(data.venues); // Set venues from the response
+      } else {
+        console.log("No venues found in response");
+      }
+    } catch (e) {
+      console.log("Error fetching data:", e);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <StatusBar  backgroundColor='#5E3A16' />
-        <View style={{backgroundColor: '#5E3A16'}}>
+        <StatusBar backgroundColor='#5E3A16' />
+        <View style={{ backgroundColor: '#5E3A16' }}>
           <View
             style={{
               width: 80,
@@ -28,26 +53,23 @@ export function HomeScreen() {
               borderRadius: 50,
               alignSelf: 'center',
               marginTop: 30,
-
-              // Half the width and height to make it circular
             }}>
             <Image
-              source={require('../assets/image/fika5.png')} // Path to your image
+              source={require('../assets/image/fika5.png')}
               style={{
-                width: 80, // Slightly smaller than the container to show the red background as a border
+                width: 80,
                 height: 80,
-                borderRadius: 45, // Half of the width/height to make the image circular
-                // borderWidth: 5, // Adds a border around the image
+                borderRadius: 45,
                 borderColor: 'white',
-                alignSelf: 'center ', // Border color (you can change it if needed)
+                alignSelf: 'center',
               }}
-              resizeMode="cover" // Ensures the image covers the entire circle
+              resizeMode="cover"
             />
           </View>
 
           <View style={styles.banner}>
             <Image
-              source={require('../assets/image/fikabanner.png')} // Example banner image
+              source={require('../assets/image/fikabanner.png')}
               style={styles.bannerLogo}
             />
             <View style={styles.bannerText}>
@@ -73,39 +95,33 @@ export function HomeScreen() {
             </View>
           </View>
         </View>
-        {/* Buttons for Refer and QR code */}
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.iconButton}>
             <Text style={styles.iconButtonText}>Refer a friend</Text>
-            <Image style={styles.homeIcon} source={require('../assets/image/friends.png')}/>
-            {/* <Icon name="people-outline" size={24} color="#FFF" /> */}
+            <Image style={styles.homeIcon} source={require('../assets/image/friends.png')} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
             <Icon name="qr-code-outline" size={44} color="#FFF" />
-            <Image style={styles.homeIcon} source={require('../assets/image/fika4.png')}/>
-            {/* <Text style={styles.iconButtonText}>Your QR Code</Text> */}
+            <Image style={styles.homeIcon} source={require('../assets/image/fika4.png')} />
           </TouchableOpacity>
         </View>
 
-        {/* Venue List */}
         <View style={styles.venueListContainer}>
           <Text style={styles.venueHeader}>Select Venue</Text>
 
-          <TouchableOpacity
-            style={styles.venueCard}
-            onPress={() => navigation.navigate('VenueDetails')}>
-            <Text style={styles.venueName}>
-              The Fika Teahouse - East Location
-            </Text>
-            <Text style={styles.venueAddress}>12 Tripoli St, Accra</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.venueCard}>
-            <Text style={styles.venueName}>
-              The Fika Teahouse - South Labadi
-            </Text>
-            <Text style={styles.venueAddress}>Jomo S Ln, Accra</Text>
-          </TouchableOpacity>
+          {venues.length === 0 ? (
+            <Text>Loading venues...</Text>
+          ) : (
+            venues.map((venue) => (
+              <TouchableOpacity
+                key={venue._id}
+                style={styles.venueCard}
+                onPress={() => navigation.navigate('VenueDetails', { venueId: venue._id })}>
+                <Text style={styles.venueName}>{venue.name}</Text>
+                <Text style={styles.venueAddress}>{venue.address}</Text>
+              </TouchableOpacity>
+            ))
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -122,7 +138,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#8B4513',
     paddingBottom: 10,
   },
-
   banner: {
     backgroundColor: 'white',
     marginBottom: 20,
@@ -134,12 +149,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginTop: 10,
   },
-
   bannerLogo: {
     height: 200,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
-    width: '100%', // Make banner image full width
+    width: '100%',
   },
   headerImage: {
     width: 400,
@@ -204,7 +218,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
     gap: 7,
   },
