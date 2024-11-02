@@ -3,67 +3,52 @@ import { View, Text, FlatList, TextInput, TouchableOpacity, StyleSheet, Dimensio
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useRoute } from '@react-navigation/native';
 
-// Get device dimensions for responsiveness
 const { width } = Dimensions.get('window');
 
 const Checkout = () => {
+    const route = useRoute();
+    const { cartItems = [], cartTotal = 0 } = route.params || {};
     const [deliveryLocation, setDeliveryLocation] = useState('East Legon');
-
     const [isModalVisible, setModalVisible] = useState(false);
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
 
-    // Data for cart items
-    const cartItems = [
-        { id: '1', name: 'Love Cocoa Coffee Cream Latte', description: 'Fresh coconut milk, layered with whipped coffee', price: 30 },
-        { id: '2', name: 'Fika Vanilla Americano', description: 'Whipped coffee, vanilla, brown sugar syrup', price: 30 },
-    ];
-
-    // Function to render each cart item
-    const renderItem = ({ item }) => (
+    const renderItem = ({ item, index }) => (
         <View style={styles.cartItem}>
-            <Text style={styles.cartItemName}>{item.name}</Text>
-            <Text style={styles.cartItemDescription}>{item.description}</Text>
-            <Text style={styles.cartItemPrice}>GHC {item.price.toFixed(2)}</Text>
+            <Text style={styles.cartItemName}>{index + 1}. {item.name} ({item.size})</Text>
+            <View style={styles.priceRow}>
+                <Text style={styles.cartItemDescription}>{item.description}</Text>
+                <Text style={styles.cartItemPrice}>GHC {item.price.toFixed(2)}</Text>
+            </View>
         </View>
     );
 
     return (
         <View style={styles.container}>
-
             <ScrollView style={styles.scrollView}>
-                {/* Cart Items Section */}
                 <View style={styles.Overview}>
                     <View style={styles.section}>
                         <View style={styles.sectionTitle}>
                             <MaterialIcons name="redeem" size={18} color="#33AC48" />
-                            <Text style={{color: '#33AC48'}}>Cart items</Text>
+                            <Text style={{ color: '#33AC48' }}>Cart items</Text>
                         </View>
-                        <View style={styles.cartItem}>
-                            <Text style={styles.cartItemName}>1. Love Cocoa Coffee Cream Latte </Text>
-                            <View style={styles.priceRow}>
-                                <Text style={styles.cartItemDescription}>Fresh coconut milk, layered with whipped coffee Fresh coconut milk, layered with whipped coffee</Text>
-                                <Text style={styles.cartItemPrice}>GHC 30.00</Text>
-                            </View>
-                        </View>
-                        <View style={styles.cartItem}>
-                            <Text style={styles.cartItemName}>2. Fika Vanilla Americano </Text>
-                            <View style={styles.priceRow}>
-                                <Text style={styles.cartItemDescription}>Whipped coffee, vanilla, brown sugar syrup Whipped coffee, vanilla, brown sugar syrup</Text>
-                                <Text style={styles.cartItemPrice}>GHC 30.00</Text>
-                            </View>
-                        </View>
-                        <Text style={styles.totalPrice}>TOTAL: GHC 60.00</Text>
+                        <FlatList
+                            data={cartItems}
+                            renderItem={renderItem}
+                            keyExtractor={(item) => item._id}
+                        />
+                        <Text style={styles.totalPrice}>TOTAL: GHC {cartTotal.toFixed(2)}</Text>
                     </View>
 
                     {/* Delivery Info Section */}
                     <View style={styles.section}>
                         <View style={styles.sectionTitle}>
                             <MaterialIcons name="history" size={20} color='#69332E' />
-                            <Text style={{color: '#69332E'}}>Delivery info</Text>
+                            <Text style={{ color: '#69332E' }}>Delivery info</Text>
                         </View>
                         <Text style={styles.location}>Input Delivery Location</Text>
                         <TextInput
@@ -80,12 +65,9 @@ const Checkout = () => {
             </ScrollView>
             <View style={styles.fixedButtonContainer}>
                 <TouchableOpacity style={styles.payButton} onPress={toggleModal}>
-                    <Text style={styles.payButtonText}>Pay GHC 60.00</Text>
+                    <Text style={styles.payButtonText}>Pay GHC {cartTotal.toFixed(2)}</Text>
                 </TouchableOpacity>
             </View>
-
-
-
 
             {/* Modal */}
             <Modal
@@ -96,33 +78,28 @@ const Checkout = () => {
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
                         <Text style={styles.modalTitle}>Choose Payment Method</Text>
-
                         {/* Payment Methods */}
                         <TouchableOpacity style={styles.paymentOption}>
                             <Image source={require('../../assets/image/fika5.png')} style={styles.paymentImage} />
                             <Text style={styles.paymentText}>Loyalty Points</Text>
                         </TouchableOpacity>
                         <View style={styles.horizontalLine} />
-
                         <TouchableOpacity style={styles.paymentOption}>
                             <Image source={require('../../assets/image/mtn.jpeg')} style={styles.paymentImage} />
                             <Text style={styles.paymentText}>MTN Mobile Money</Text>
                         </TouchableOpacity>
                         <View style={styles.horizontalLine} />
-
                         <TouchableOpacity style={styles.paymentOption}>
                             <Image source={require('../../assets/image/tigo.png')} style={styles.paymentImage} />
                             <Text style={styles.paymentText}>AirtelTigo Money</Text>
                         </TouchableOpacity>
                         <View style={styles.horizontalLine} />
-
                         <TouchableOpacity style={styles.paymentOption}>
                             <Image source={require('../../assets/image/mastercard.jpeg')} style={styles.paymentImage} />
                             <Text style={styles.paymentText}>Mastercard</Text>
                         </TouchableOpacity>
                         <View style={styles.horizontalLine} />
-
-                        {/* Close button */}
+                        {/* Other Payment Options */}
                         <TouchableOpacity onPress={toggleModal} style={styles.closeButton}>
                             <Text style={styles.closeButtonText}>Close</Text>
                         </TouchableOpacity>
@@ -130,9 +107,9 @@ const Checkout = () => {
                 </View>
             </Modal>
         </View>
-
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {

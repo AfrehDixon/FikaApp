@@ -24,6 +24,7 @@ export function HomeScreen() {
         },
       });
       const data = await response.json();
+      console.log("Fetched data:", data); // Log the fetched data for debugging purposes
       if (data.venues) {
         setVenues(data.venues); // Set venues from the response
       } else {

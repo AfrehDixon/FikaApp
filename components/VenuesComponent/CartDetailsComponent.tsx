@@ -2,18 +2,35 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const CartDetailsComponent = ({ navigation }) => {
-  const [selectedSize, setSelectedSize] = useState('BIBIO');
+const CartDetailsComponent = ({ route, navigation }) => {
+  const { item, sizes, onAddToCart } = route.params;  // Retrieve sizes
+  const [selectedSizes, setSelectedSizes] = useState([]);
 
-  const sizes = [
-    { name: 'BIBIO', price: 3500 },
-    { name: 'ELOLO', price: 450 },
-    { name: 'KESE', price: 40 },
-  ];
+  const toggleSizeSelection = (size) => {
+    setSelectedSizes((prevSelectedSizes) => {
+      if (prevSelectedSizes.includes(size)) {
+        return prevSelectedSizes.filter((s) => s !== size);
+      }
+      return [...prevSelectedSizes, size];
+    });
+  };
+
+  const handleAddToCart = () => {
+    const selectedSizesData = selectedSizes.map(sizeName =>
+      sizes.find(size => size.name === sizeName)
+    );
+    onAddToCart(item, selectedSizesData);
+    navigation.goBack();
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar hidden={true} />
+      <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Icon name="arrow-back-sharp" size={24} color="#ffffff" />
+      </TouchableOpacity>
+
       <Image
         source={require('../../assets/image/coffee1.jpeg')}
         style={styles.productImage}
@@ -30,18 +47,17 @@ const CartDetailsComponent = ({ navigation }) => {
               key={size.name}
               style={[
                 styles.sizeOption,
-                selectedSize === size.name && styles.selectedSizeOption,
+                selectedSizes.includes(size.name) && styles.selectedSizeOption,
               ]}
-              onPress={() => setSelectedSize(size.name)}
+              onPress={() => toggleSizeSelection(size.name)}
             >
               <View style={styles.sizeInfo}>
                 <Text style={styles.sizeName}>{size.name}</Text>
                 <Text style={styles.sizePrice}>GHc {size.price}</Text>
               </View>
-              {/* Radio button outside of the size option box */}
-              {selectedSize === size.name && (
-                <View style={styles.radioButton}>
-                  <View style={styles.radioButtonInner} />
+              {selectedSizes.includes(size.name) && (
+                <View style={styles.checkBox}>
+                  <View style={styles.checkBoxInner} />
                 </View>
               )}
             </TouchableOpacity>
@@ -51,9 +67,13 @@ const CartDetailsComponent = ({ navigation }) => {
 
       <View style={styles.footer}>
         <Text style={styles.totalPrice}>
-          GHc {sizes.find(size => size.name === selectedSize)?.price || 0}
+          GHc {selectedSizes.reduce((total, sizeName) =>
+            total + (sizes.find(size => size.name === sizeName)?.price || 0), 0)}
         </Text>
-        <TouchableOpacity style={styles.addToCartButton} onPress={()=> navigation.navigate('ViewCart')}>
+        <TouchableOpacity
+          style={styles.addToCartButton}
+          onPress={handleAddToCart}
+        >
           <Text style={styles.addToCartButtonText}>Add to cart</Text>
         </TouchableOpacity>
       </View>
@@ -68,14 +88,28 @@ const styles = StyleSheet.create({
   },
   productImage: {
     width: '100%',
-    height: 400,
+    height: 450,
+    position: 'absolute',
+    top: 0,
+    left: 0,
     resizeMode: 'cover',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 40,
+    left: 10,
+    zIndex: 1,
+    padding: 8,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 20,
   },
   contentContainer: {
     flex: 1,
     padding: 16,
     backgroundColor: 'white',
-    marginTop: -20,
+    marginTop: 430,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   productTitle: {
     fontSize: 24,
@@ -91,9 +125,9 @@ const styles = StyleSheet.create({
   },
   sizeOptionsContainer: {
     marginBottom: 16,
-    display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    gap: 10,
   },
   sizeOption: {
     flexDirection: 'row',
@@ -102,23 +136,23 @@ const styles = StyleSheet.create({
     width: '45%',
     height: 80,
     justifyContent: 'space-between',
-    borderRadius: 5, // Smaller border radius
+    borderRadius: 5,
     padding: 10,
     backgroundColor: '#fff',
   },
   selectedSizeOption: {
     backgroundColor: '#F0F0F0',
   },
-  radioButton: {
+  checkBox: {
     width: 20,
     height: 20,
-    borderRadius: 10,
+    borderRadius: 5,
     borderWidth: 2,
     borderColor: '#4A2B20',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  radioButtonInner: {
+  checkBoxInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
