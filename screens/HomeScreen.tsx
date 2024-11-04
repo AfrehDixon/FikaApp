@@ -12,12 +12,18 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
+type Venue = {
+  _id: string;
+  name: string;
+  address: string;
+};
+
 export function HomeScreen() {
-  const [venues, setVenues] = useState([]); // Initialize venues as an empty array
+  const [venues, setVenues] = useState<Venue[]>([]); // Initialize venues as an empty array
 
   const fetchData = async () => {
     try {
-      const response = await fetch('https://fiakapi-1.onrender.com/api/venues/get', {
+      const response = await fetch('https://fiakapi-1.onrender.com/api/venues', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -37,6 +43,7 @@ export function HomeScreen() {
 
   useEffect(() => {
     fetchData();
+   
   }, []);
 
   const navigation = useNavigation();
@@ -118,6 +125,7 @@ export function HomeScreen() {
                 key={venue._id}
                 style={styles.venueCard}
                 onPress={() => navigation.navigate('VenueDetails', { venueId: venue._id })}>
+              
                 <Text style={styles.venueName}>{venue.name}</Text>
                 <Text style={styles.venueAddress}>{venue.address}</Text>
               </TouchableOpacity>
