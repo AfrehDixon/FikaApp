@@ -12,6 +12,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox'; // Updated import
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({navigation}) => {
   const [loading, setloading] = useState(false);
@@ -45,9 +46,27 @@ const LoginScreen = ({navigation}) => {
       console.log(email, password);
 
       const data = await response.json();
-      console.log(data);
+      console.log(data.customer.fullname);
+
       Alert.alert('signup succesful');
 
+      const token = data.token;
+      console.log(token);
+      const customer = data.customer; // Extract the customer object
+
+      const userDetails = {
+        name: customer.fullname, // Get fullname from the customer object
+        email: customer.email, // Get email from the customer object
+      };
+
+
+      console.log(userDetails);
+
+      await AsyncStorage.setItem('token', token);
+       await AsyncStorage.setItem('userDetails', JSON.stringify(userDetails));
+
+      
+      
       if (response.ok) {
         Alert.alert('signup succesful');
         // Handle successful signup (e.g., navigate to another screen)
