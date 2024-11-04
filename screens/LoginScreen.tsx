@@ -1,13 +1,69 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Dimensions, StatusBar } from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Dimensions,
+  StatusBar,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import CheckBox from '@react-native-community/checkbox'; // Updated import
 
-const LoginScreen = ({ navigation }) => {
-  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-  const [phoneNumber, setPhoneNumber] = useState('');
+const LoginScreen = ({navigation}) => {
+  const [loading, setloading] = useState(false);
+  const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   // const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const signin = async () => {
+    setloading(true);
+    if (!email && !password) {
+      Alert.alert('Empty fields');
+      setloading(false);
+    }
+    try {
+      const response = await fetch(
+        'https://fiakapi-1.onrender.com/api/customers/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        },
+      );
+
+      console.log(email, password);
+
+      const data = await response.json();
+      console.log(data);
+      Alert.alert('signup succesful');
+
+      if (response.ok) {
+        Alert.alert('signup succesful');
+        // Handle successful signup (e.g., navigate to another screen)
+        console.log('Signup successful', data);
+        navigation.navigate('Main');
+        setloading(false);
+      } else {
+        // Handle errors (e.g., show an error message)
+        console.error('Signup failed', data);
+      }
+    } catch (error) {
+      Alert.alert('Internet Connecton Error');
+    } finally {
+      setloading(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -26,13 +82,13 @@ const LoginScreen = ({ navigation }) => {
 
         {/* Phone Number Input */}
         <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Phone number</Text>
+          <Text style={styles.inputLabel}>Email</Text>
           <TextInput
             style={styles.input}
-            placeholder="0575540404"
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            keyboardType="phone-pad"
+            placeholder="chephas@gmail.om"
+            value={email}
+            onChangeText={setemail}
+            // keyboardType="phone-pad"
           />
         </View>
 
@@ -49,15 +105,14 @@ const LoginScreen = ({ navigation }) => {
             />
 
             {/* Password visibility toggle icon */}
-            <TouchableOpacity 
-                style={styles.eyeIcon}
-                onPress={() => setShowPassword(!showPassword)}
-              >
-                <Image
-                  source={require('../assets/image/eye-off.png')}
-                  style={styles.icon}
-                />
-              </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.eyeIcon}
+              onPress={() => setShowPassword(!showPassword)}>
+              <Image
+                source={require('../assets/image/eye-off.png')}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -72,13 +127,21 @@ const LoginScreen = ({ navigation }) => {
             <Text style={styles.rememberMeText}>Remember me</Text>
           </View>
           <TouchableOpacity>
-            <Text style={styles.forgotPinText}>Forgot PIN?</Text>
+            <Text style={styles.forgotPinText}>Forgot PIN??</Text>
           </TouchableOpacity>
         </View>
 
         {/* Log In Button */}
-        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Main')}>
-          <Text style={styles.loginButtonText}>Log In</Text>
+
+        <TouchableOpacity style={styles.loginButton} onPress={() => signin()}>
+          {loading ? (
+            <View>
+              <ActivityIndicator />
+              <Text>Loading ...</Text>
+            </View>
+          ) : (
+            <Text style={styles.loginButtonText}>Log In</Text>
+          )}
         </TouchableOpacity>
 
         {/* Sign Up Option */}
@@ -91,10 +154,13 @@ const LoginScreen = ({ navigation }) => {
       </View>
 
       {/* Drinks at the Bottom */}
-      <View style={[styles.drinksContainer, { width: screenWidth }]}>
+      <View style={[styles.drinksContainer, {width: screenWidth}]}>
         <Image
           source={require('../assets/image/splashImage.png')}
-          style={[styles.drinksImage, { width: screenWidth * 1.0, height: screenHeight * 0.25 }]}
+          style={[
+            styles.drinksImage,
+            {width: screenWidth * 1.0, height: screenHeight * 0.25},
+          ]}
           resizeMode="contain"
         />
       </View>
@@ -125,7 +191,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,

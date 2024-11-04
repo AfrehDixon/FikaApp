@@ -1,23 +1,75 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Dimensions, ImageBackground, ScrollView, StatusBar } from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Dimensions,
+  ImageBackground,
+  ScrollView,
+  StatusBar,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 
 // Get screen dimensions and create scaling factors
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 const scale = size => (SCREEN_WIDTH / 375) * size;
 const verticalScale = size => (SCREEN_HEIGHT / 812) * size;
 
-const SignUpScreen = ({ navigation }) => {
+const SignUpScreen = ({navigation}) => {
+  const [loading, setloading] = useState(false);
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  const signup = async () => {
+    setloading(true);
+    try {
+      const response = await fetch(
+        'https://fiakapi-1.onrender.com/api/customers/new',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fullname: name,
+            phoneNumber,
+            email,
+            password,
+          }),
+        },
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      if (response.ok) {
+        // Handle successful signup (e.g., navigate to another screen)
+        console.log('Signup successful', data);
+        navigation.navigate('Login');
+        setloading(false);
+      } else {
+        // Handle errors (e.g., show an error message)
+        console.error('Signup failed', data);
+        setloading(false);
+      }
+    } catch (error) {
+      Alert.alert('Sign up error');
+      setloading(false)
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#5E3A16" barStyle="light-content" />
       {/* Logo */}
-      <View style={[styles.logoContainer, { height: verticalScale(120) }]}>
+      <View style={[styles.logoContainer, {height: verticalScale(120)}]}>
         <Image
           source={require('../assets/image/fika5.png')}
           style={[styles.logo]}
@@ -26,25 +78,33 @@ const SignUpScreen = ({ navigation }) => {
       </View>
 
       {/* Sign Up Form */}
-      <View style={[styles.formContainer, { paddingBottom: verticalScale(60) }]}>
-        <View style={[styles.formContentContainer, {
-          width: SCREEN_WIDTH * 0.9,
-          padding: scale(20),
-        }]}>
+      <View style={[styles.formContainer, {paddingBottom: verticalScale(60)}]}>
+        <View
+          style={[
+            styles.formContentContainer,
+            {
+              width: SCREEN_WIDTH * 0.9,
+              padding: scale(20),
+            },
+          ]}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text style={[styles.signupTitle]}>Sign Up</Text>
 
             {/* Name Input */}
-            <View style={[styles.inputGroup, { marginBottom: verticalScale(15) }]}>
+            <View
+              style={[styles.inputGroup, {marginBottom: verticalScale(15)}]}>
               <Text style={[styles.inputLabel]}>Name</Text>
               <View style={styles.inputWrapper}>
                 <TextInput
-                  style={[styles.input, {
-                    padding: scale(10),
-                    borderRadius: scale(8),
-                    marginBottom: verticalScale(5),
-                    fontSize: scale(14),
-                  }]}
+                  style={[
+                    styles.input,
+                    {
+                      padding: scale(10),
+                      borderRadius: scale(8),
+                      marginBottom: verticalScale(5),
+                      fontSize: scale(14),
+                    },
+                  ]}
                   placeholder="Don Cephas"
                   value={name}
                   onChangeText={setName}
@@ -54,19 +114,29 @@ const SignUpScreen = ({ navigation }) => {
             </View>
 
             {/* Phone Number Input */}
-            <View style={[styles.inputGroup, { marginBottom: verticalScale(15) }]}>
-              <Text style={[styles.inputLabel, {
-                fontSize: scale(14),
-                marginBottom: verticalScale(5),
-              }]}>Phone number</Text>
+            <View
+              style={[styles.inputGroup, {marginBottom: verticalScale(15)}]}>
+              <Text
+                style={[
+                  styles.inputLabel,
+                  {
+                    fontSize: scale(14),
+                    marginBottom: verticalScale(5),
+                  },
+                ]}>
+                Phone number
+              </Text>
               <View style={styles.inputWrapper}>
                 <TextInput
-                  style={[styles.input, {
-                    padding: scale(10),
-                    borderRadius: scale(8),
-                    marginBottom: verticalScale(5),
-                    fontSize: scale(14),
-                  }]}
+                  style={[
+                    styles.input,
+                    {
+                      padding: scale(10),
+                      borderRadius: scale(8),
+                      marginBottom: verticalScale(5),
+                      fontSize: scale(14),
+                    },
+                  ]}
                   placeholder="0575540404"
                   value={phoneNumber}
                   onChangeText={setPhoneNumber}
@@ -77,19 +147,29 @@ const SignUpScreen = ({ navigation }) => {
             </View>
 
             {/* Email Input */}
-            <View style={[styles.inputGroup, { marginBottom: verticalScale(15) }]}>
-              <Text style={[styles.inputLabel, {
-                fontSize: scale(14),
-                marginBottom: verticalScale(5),
-              }]}>Email</Text>
+            <View
+              style={[styles.inputGroup, {marginBottom: verticalScale(15)}]}>
+              <Text
+                style={[
+                  styles.inputLabel,
+                  {
+                    fontSize: scale(14),
+                    marginBottom: verticalScale(5),
+                  },
+                ]}>
+                Email
+              </Text>
               <View style={styles.inputWrapper}>
                 <TextInput
-                  style={[styles.input, {
-                    padding: scale(10),
-                    borderRadius: scale(8),
-                    marginBottom: verticalScale(5),
-                    fontSize: scale(14),
-                  }]}
+                  style={[
+                    styles.input,
+                    {
+                      padding: scale(10),
+                      borderRadius: scale(8),
+                      marginBottom: verticalScale(5),
+                      fontSize: scale(14),
+                    },
+                  ]}
                   placeholder="cephasntiamoa10@gmail.com"
                   value={email}
                   onChangeText={setEmail}
@@ -100,19 +180,29 @@ const SignUpScreen = ({ navigation }) => {
             </View>
 
             {/* Password Input */}
-            <View style={[styles.inputGroup, { marginBottom: verticalScale(15) }]}>
-              <Text style={[styles.inputLabel, {
-                fontSize: scale(14),
-                marginBottom: verticalScale(5),
-              }]}>Password</Text>
+            <View
+              style={[styles.inputGroup, {marginBottom: verticalScale(15)}]}>
+              <Text
+                style={[
+                  styles.inputLabel,
+                  {
+                    fontSize: scale(14),
+                    marginBottom: verticalScale(5),
+                  },
+                ]}>
+                Password
+              </Text>
               <View style={styles.passwordContainer}>
                 <TextInput
-                  style={[styles.input, {
-                    padding: scale(10),
-                    borderRadius: scale(8),
-                    marginBottom: verticalScale(5),
-                    fontSize: scale(14),
-                  }]}
+                  style={[
+                    styles.input,
+                    {
+                      padding: scale(10),
+                      borderRadius: scale(8),
+                      marginBottom: verticalScale(5),
+                      fontSize: scale(14),
+                    },
+                  ]}
                   placeholder="********"
                   secureTextEntry={!showPassword}
                   value={password}
@@ -120,12 +210,14 @@ const SignUpScreen = ({ navigation }) => {
                   placeholderTextColor="#999"
                 />
                 <TouchableOpacity
-                  style={[styles.eyeIcon, {
-                    right: scale(12),
-                    transform: [{ translateY: -scale(10) }],
-                  }]}
-                  onPress={() => setShowPassword(!showPassword)}
-                >
+                  style={[
+                    styles.eyeIcon,
+                    {
+                      right: scale(12),
+                      transform: [{translateY: -scale(10)}],
+                    },
+                  ]}
+                  onPress={() => setShowPassword(!showPassword)}>
                   <Image
                     source={require('../assets/image/eye-off.png')}
                     style={[styles.icon]}
@@ -135,20 +227,37 @@ const SignUpScreen = ({ navigation }) => {
             </View>
 
             {/* Next Button */}
-            <TouchableOpacity style={[styles.nextButton, {
-              padding: scale(15),
-              borderRadius: scale(8),
-              marginTop: verticalScale(10),
-              marginBottom: verticalScale(15),
-            }]} onPress={() => navigation.navigate('otpScreen')}>
-              <Text style={[styles.nextButtonText, { fontSize: scale(16) }]}>Next</Text>
+            <TouchableOpacity
+              style={[
+                styles.nextButton,
+                {
+                  padding: scale(15),
+                  borderRadius: scale(8),
+                  marginTop: verticalScale(10),
+                  marginBottom: verticalScale(15),
+                },
+              ]}
+              onPress={() => signup()}>
+              {loading ? (
+                <View>
+                  <ActivityIndicator />
+                </View>
+              ) : (
+                <Text style={[styles.nextButtonText, {fontSize: scale(16)}]}>
+                  Sign Up
+                </Text>
+              )}
             </TouchableOpacity>
 
             {/* Login Option */}
             <View style={styles.loginContainer}>
-              <Text style={[styles.loginText, { fontSize: scale(14) }]}>Already have an account? </Text>
+              <Text style={[styles.loginText, {fontSize: scale(14)}]}>
+                Already have an account?
+              </Text>
               <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text style={[styles.loginLink, { fontSize: scale(14) }]}>Login</Text>
+                <Text style={[styles.loginLink, {fontSize: scale(14)}]}>
+                  Login
+                </Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
@@ -156,13 +265,16 @@ const SignUpScreen = ({ navigation }) => {
       </View>
 
       {/* Bottom Background Image */}
-      <View style={[styles.drinksContainer, { width: SCREEN_WIDTH }]}>
+      <View style={[styles.drinksContainer, {width: SCREEN_WIDTH}]}>
         <ImageBackground
           source={require('../assets/image/splashImage.png')}
-          style={[styles.drinksImage, {
-            width: SCREEN_WIDTH,
-            height: SCREEN_HEIGHT * 0.25,
-          }]}
+          style={[
+            styles.drinksImage,
+            {
+              width: SCREEN_WIDTH,
+              height: SCREEN_HEIGHT * 0.25,
+            },
+          ]}
           resizeMode="contain"
         />
       </View>
@@ -196,7 +308,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: scale(10),
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
@@ -213,9 +325,7 @@ const styles = StyleSheet.create({
   inputGroup: {
     width: '100%',
   },
-  inputLabel: {
-
-  },
+  inputLabel: {},
   inputWrapper: {
     width: '100%',
   },
@@ -274,7 +384,6 @@ const styles = StyleSheet.create({
 });
 
 export default SignUpScreen;
-
 
 // import React, { useState } from 'react';
 // import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Dimensions, ImageBackground } from 'react-native';
@@ -489,5 +598,3 @@ export default SignUpScreen;
 // });
 
 // export default SignUpScreen;
-
-
