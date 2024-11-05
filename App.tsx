@@ -19,6 +19,7 @@ import RootNavigator from './RootNavigation';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const App = () => {
 
@@ -29,6 +30,7 @@ const App = () => {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <NavigationContainer>
           <RootNavigator />
+          <Toast />
         </NavigationContainer>
       </GestureHandlerRootView>
     </SafeAreaProvider>

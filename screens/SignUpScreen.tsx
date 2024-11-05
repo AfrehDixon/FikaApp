@@ -13,6 +13,7 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 // Get screen dimensions and create scaling factors
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
@@ -48,19 +49,30 @@ const SignUpScreen = ({navigation}) => {
 
       const data = await response.json();
       console.log(data);
+      Toast.show({
+        type: 'success',
+        position: 'top',
+        text1: 'Signup successful',
+        autoHide: true,
+      });
 
-      if (response.ok) {
+      // if (response.ok) {
         // Handle successful signup (e.g., navigate to another screen)
-        console.log('Signup successful', data);
+        // console.log('Signup successful', data);
         navigation.navigate('Login');
         setloading(false);
-      } else {
+      // } else {
         // Handle errors (e.g., show an error message)
-        console.error('Signup failed', data);
-        setloading(false);
-      }
+        // console.error('Signup failed', data);
+        // setloading(false);
+      // }
     } catch (error) {
-      Alert.alert('Sign up error');
+      Toast.show({
+        type: 'error',
+        position: 'top',
+        text1: 'Signup failed',
+        autoHide: true,
+      });
       setloading(false)
     }
   };

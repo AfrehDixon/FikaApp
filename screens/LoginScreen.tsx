@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox'; // Updated import
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const LoginScreen = ({ navigation }) => {
   const [loading, setloading] = useState(false);
@@ -25,7 +26,13 @@ const LoginScreen = ({ navigation }) => {
   const signin = async () => {
     setloading(true);
     if (!email && !password) {
-      Alert.alert('Empty fields');
+       Toast.show({
+        type: 'error',
+        position: 'top',
+        text1: 'Please fill in all fields',
+        autoHide: true,
+      });
+
       setloading(false);
     }
     try {
@@ -48,7 +55,12 @@ const LoginScreen = ({ navigation }) => {
       const data = await response.json();
       console.log(data.customer.fullname);
 
-      Alert.alert('signup succesful');
+      // Toast.show({
+      //   type: 'success',
+      //   position: 'top',
+      //   text1: 'Login Successful',
+      //   autoHide: true,
+      // });
 
       const token = data.token;
       console.log(token);
@@ -65,20 +77,33 @@ const LoginScreen = ({ navigation }) => {
       await AsyncStorage.setItem('token', token);
       await AsyncStorage.setItem('userDetails', JSON.stringify(userDetails));
 
-
-
-      if (response.ok) {
-        Alert.alert('signup succesful');
+      
+      
+      // if (response.ok) {
+        // Alert.alert('signup succesful');
         // Handle successful signup (e.g., navigate to another screen)
-        console.log('Signup successful', data);
+      console.log('Signup successful', data);
+       Toast.show({
+        type: 'success',
+        position: 'top',
+        text1: 'Login Successful',
+        autoHide: true,
+      });
+
         navigation.navigate('Main');
         setloading(false);
-      } else {
+      // } else {
         // Handle errors (e.g., show an error message)
-        console.error('Signup failed', data);
-      }
+        // console.error('Signup failed', data);
+      // }
     } catch (error) {
-      Alert.alert('Internet Connecton Error');
+       Toast.show({
+        type: 'error',
+        position: 'top',
+        text1: 'Password or Email is incorrect',
+        autoHide: true,
+      });
+
     } finally {
       setloading(false);
     }
@@ -154,9 +179,9 @@ const LoginScreen = ({ navigation }) => {
 
         <TouchableOpacity style={styles.loginButton} onPress={() => signin()}>
           {loading ? (
-            <View>
+            <View style={{display: "flex ",flexDirection: 'row'}}>
               <ActivityIndicator />
-              <Text>Loading ...</Text>
+              <Text style={{color: 'white' , marginLeft: 5}}>Loading ...</Text>
             </View>
           ) : (
             <Text style={styles.loginButtonText}>Log In</Text>
