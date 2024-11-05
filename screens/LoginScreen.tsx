@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -14,9 +14,9 @@ import {
 import CheckBox from '@react-native-community/checkbox'; // Updated import
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation }) => {
   const [loading, setloading] = useState(false);
-  const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
+  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   // const [rememberMe, setRememberMe] = useState(false);
@@ -63,10 +63,10 @@ const LoginScreen = ({navigation}) => {
       console.log(userDetails);
 
       await AsyncStorage.setItem('token', token);
-       await AsyncStorage.setItem('userDetails', JSON.stringify(userDetails));
+      await AsyncStorage.setItem('userDetails', JSON.stringify(userDetails));
 
-      
-      
+
+
       if (response.ok) {
         Alert.alert('signup succesful');
         // Handle successful signup (e.g., navigate to another screen)
@@ -90,7 +90,7 @@ const LoginScreen = ({navigation}) => {
       {/* Logo */}
       <View style={styles.logoContainer}>
         <Image
-          source={require('../assets/image/fika5.png')}
+          source={require('../assets/image/daddylogo.png')}
           style={styles.logo}
         />
       </View>
@@ -107,7 +107,7 @@ const LoginScreen = ({navigation}) => {
             placeholder="chephas@gmail.om"
             value={email}
             onChangeText={setemail}
-            // keyboardType="phone-pad"
+          // keyboardType="phone-pad"
           />
         </View>
 
@@ -173,12 +173,15 @@ const LoginScreen = ({navigation}) => {
       </View>
 
       {/* Drinks at the Bottom */}
-      <View style={[styles.drinksContainer, {width: screenWidth}]}>
+      <View style={[styles.drinksContainer, { width: screenWidth }]}>
         <Image
-          source={require('../assets/image/splashImage.png')}
+          source={require('../assets/image/daddybackground.png')}
           style={[
             styles.drinksImage,
-            {width: screenWidth * 1.0, height: screenHeight * 0.25},
+            {
+              width: screenWidth * 1.0,
+              height: screenHeight * 0.25,
+            },
           ]}
           resizeMode="contain"
         />
@@ -210,7 +213,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
@@ -292,7 +295,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   drinksContainer: {
-    paddingBottom: -20,
+    paddingBottom: -5,
     justifyContent: 'center',
     alignItems: 'center',
   },

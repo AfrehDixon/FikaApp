@@ -22,7 +22,7 @@ const Loyalty = () => {
       <View style={styles.loyaltyCard}>
         <View style={styles.logoContainer}>
           <Image
-            source={require('../assets/image/fika5.png')}
+            source={require('../assets/image/daddylogo.png')}
             style={styles.logo}
             resizeMode="cover"
           />
@@ -46,7 +46,7 @@ const Loyalty = () => {
         <View style={styles.rewardCard}>
           <Image
             style={styles.rewardImage}
-            source={require('../assets/image/fika4.png')}
+            source={require('../assets/image/lcup.png')}
           />
         </View>
         <View style={styles.rewardDetails}>
@@ -76,7 +76,7 @@ const Loyalty = () => {
         <View style={styles.rewardCard}>
           <Image
             style={styles.rewardImage}
-            source={require('../assets/image/fika4.png')}
+            source={require('../assets/image/lcup2.png')}
           />
         </View>
         <View style={styles.rewardDetails}>
@@ -139,8 +139,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   logo: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     borderRadius: 45,
     borderColor: 'white',
   },

@@ -32,7 +32,7 @@ const CartDetailsComponent = ({ route, navigation }) => {
       </TouchableOpacity>
 
       <Image
-        source={require('../../assets/image/coffee1.jpeg')}
+        source={require('../../assets/image/cup2.jpeg')}
         style={styles.productImage}
       />
 

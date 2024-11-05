@@ -63,11 +63,11 @@ const VenueDetailsComponent = ({route}) => {
 
   const getImageSource = id => {
     const imageMap = {
-      '1': require('../../assets/image/coffee1.jpeg'),
-      '2': require('../../assets/image/fika3.png'),
-      '3': require('../../assets/image/fikashelf2.png'),
-      '4': require('../../assets/image/fikashelf3.png'),
-      default: require('../../assets/image/coffee1.jpeg'),
+      '1': require('../../assets/image/cup2.jpeg'),
+      '2': require('../../assets/image/cup2.jpeg'),
+      '3': require('../../assets/image/cup3.jpeg'),
+      '4': require('../../assets/image/cup4.jpeg'),
+      default: require('../../assets/image/cup4.jpeg'),
     };
     return imageMap[id] || imageMap.default;
   };
