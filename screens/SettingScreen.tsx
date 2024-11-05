@@ -1,16 +1,25 @@
-import React ,{useEffect ,useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, StatusBar ,Alert } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+  StatusBar,
+  Alert,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { userService } from '../src/services/api/user.service';
 
-
 export function SettingScreen() {
-   const [userDetails, setUserDetails] = useState({ name: '', email: '' });
+  const [userDetails, setUserDetails] = useState({name: '', email: ''});
   const navigation = useNavigation();
-  
-useEffect(() => {
+  const [loading, setloading] = useState(true);
+
+  useEffect(() => {
+    setloading(true);
     const fetchUserDetails = async () => {
       try {
         const userDetailsString = await AsyncStorage.getItem('userDetails');
@@ -24,19 +33,19 @@ useEffect(() => {
         console.error('Failed to load user details:', error);
         Alert.alert('Failed to load user details');
       } finally {
-        setLoading(false);
+        setloading(false);
       }
     };
 
     fetchUserDetails();
   }, []);
 
-   const handleLogout = async () => {
+  const handleLogout = async () => {
     // Clear the token from AsyncStorage
-     await AsyncStorage.removeItem('token');
-     
-     await AsyncStorage.getItem("userDetails");
-    
+    await AsyncStorage.removeItem('token');
+
+    await AsyncStorage.getItem('userDetails');
+
     // Navigate back to the Auth screen
     navigation.navigate('Auth');
   };
@@ -52,21 +61,27 @@ useEffect(() => {
       </View>
 
       <View style={styles.menuContainer}>
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate("PaymentMethod")}>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate('PaymentMethod')}>
           <View style={styles.menuCard}>
             <Icon name="credit-card" size={20} color="#f5f5f5" />
           </View>
           <Text style={styles.menuText}>Payment Methods</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate("OrderHistory")}>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate('OrderHistory')}>
           <View style={styles.menuCard}>
             <Icon name="history" size={20} color="#f5f5f5" />
           </View>
           <Text style={styles.menuText}>Order History</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate("Feedback")}>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate('Feedback')}>
           <View style={styles.menuCard}>
             <Icon name="comment" size={20} color="#f5f5f5" />
           </View>
@@ -80,7 +95,9 @@ useEffect(() => {
           <Text style={styles.menuText}>Settings</Text>
         </TouchableOpacity> */}
 
-        <TouchableOpacity style={styles.menuItem} onPress={()=> handleLogout()}>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => handleLogout()}>
           <View style={styles.menuCard}>
             <Icon name="sign-out" size={20} color="#f5f5f5" />
           </View>
