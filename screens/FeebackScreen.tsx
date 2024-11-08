@@ -35,7 +35,7 @@ const FeedbackScreen = () => {
     return (
         <View style={styles.container}>
             <ToastManager style={styles.toastManager} />
-            <StatusBar hidden={true} />
+            {/* <StatusBar hidden={true} /> */}
             <TextInput
                 ref={textInputRef}
                 style={styles.textArea}

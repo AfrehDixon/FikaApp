@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,18 +10,18 @@ import {
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const {width: SCREEN_WIDTH} = Dimensions.get('window');
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const MenuItem = ({item, navigation, onAddToCart}) => (
+const MenuItem = ({ item, navigation }) => (
   <TouchableOpacity
     style={styles.menuItem}
     onPress={() =>
       navigation.navigate('CartDetails', {
         item,
         sizes: item.sizes,
-        onAddToCart: onAddToCart,
       })
     }>
     <Image source={item.imageSource} style={styles.menuItemImage} />
@@ -35,90 +35,119 @@ const MenuItem = ({item, navigation, onAddToCart}) => (
   </TouchableOpacity>
 );
 
-const VenueDetailsComponent = ({route}) => {
+const VenueDetailsComponent = ({ route }) => {
   const navigation = useNavigation();
-  const {venueId} = route.params;
+  const { venueId } = route.params;
   const [sections, setSections] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
 
-  const handleAddToCart = (item, selectedSizes) => {
-    const newItems = [
-      ...cartItems,
-      ...selectedSizes.map(size => ({
-        ...item,
-        size: size.name,
-        price: size.price,
-      })),
-    ];
-    setCartItems(newItems);
-    updateCartTotal(newItems);
+  const saveCartToStorage = async (items) => {
+    try {
+      await AsyncStorage.setItem('cartItems', JSON.stringify(items));
+    } catch (error) {
+      console.error("Error saving cart data:", error);
+    }
   };
 
-  const updateCartTotal = items => {
-    const total = items.reduce((sum, item) => sum + item.price, 0);
+  const loadCartFromStorage = async () => {
+    try {
+      const savedCart = await AsyncStorage.getItem('cartItems');
+      if (savedCart) {
+        const items = JSON.parse(savedCart);
+        setCartItems(items);
+        updateCartTotal(items);
+      }
+    } catch (error) {
+      console.error("Error loading cart data:", error);
+    }
+  };
+
+  // Modified handleAddToCart to handle single items with unique IDs
+  const handleAddToCart = (newItem) => {
+    // Add the new item to cart
+    const updatedItems = [...cartItems, newItem];
+    setCartItems(updatedItems);
+    updateCartTotal(updatedItems);
+    saveCartToStorage(updatedItems);
+  };
+
+  const handleRemoveFromCart = async (itemId) => {
+    const updatedItems = cartItems.filter(item => item._id !== itemId);
+    setCartItems(updatedItems);
+    updateCartTotal(updatedItems);
+    await saveCartToStorage(updatedItems);
+  };
+
+  const updateCartTotal = (items) => {
+    const total = items.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
     setCartTotal(total);
   };
 
-  const getImageSource = id => {
+  // Rest of your existing code for fetching venue data and images...
+  const getImageSource = (id) => {
     const imageMap = {
-      '1': require('../../assets/image/coffee1.jpeg'),
-      '2': require('../../assets/image/fika3.png'),
-      '3': require('../../assets/image/fikashelf2.png'),
-      '4': require('../../assets/image/fikashelf3.png'),
-      default: require('../../assets/image/coffee1.jpeg'),
+      '1': require('../../assets/image/cup2.jpeg'),
+      '2': require('../../assets/image/cup2.jpeg'),
+      '3': require('../../assets/image/cup3.jpeg'),
+      '4': require('../../assets/image/cup4.jpeg'),
+      default: require('../../assets/image/cup4.jpeg'),
     };
     return imageMap[id] || imageMap.default;
   };
 
- useEffect(() => {
-  const fetchVenueData = async () => {
-    try {
-      const response = await fetch(
-        `https://fiakapi-1.onrender.com/api/venues/${venueId}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
+  useEffect(() => {
+    const fetchVenueData = async () => {
+      try {
+        const response = await fetch(
+          `https://fiakapi-1.onrender.com/api/venues/${venueId}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-        },
-      );
-      const responseData = await response.json();
-      console.log('Response data:', responseData);
-      console.log('Venue ID:', venueId);
+        );
+        const responseData = await response.json();
 
-      if (responseData && responseData.categories) {
-        const formattedSections = responseData.categories.map(category => ({
-          title: category.name,
-          data: category.items.map(item => ({
-            ...item,
-            imageSource: getImageSource(item._id),
-          })),
-        }));
+        if (responseData && responseData.categories) {
+          const formattedSections = responseData.categories.map(category => ({
+            title: category.name,
+            data: category.items.map(item => ({
+              ...item,
+              imageSource: getImageSource(item._id),
+            })),
+          }));
 
-        setSections(formattedSections);
-      } else {
-        console.log("Unexpected data structure:", responseData);
+          setSections(formattedSections);
+        }
+      } catch (error) {
+        console.error('Error fetching venue data:', error);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error('Error fetching venue data:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    };
 
-  fetchVenueData();
-}, [venueId]);
+    fetchVenueData();
 
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadCartFromStorage();
+    });
+
+    return unsubscribe;
+
+  }, [venueId][navigation]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      loadCartFromStorage();
+    }, [])
+  );
 
   if (isLoading) {
     return (
-      <View
-        style={[
-          styles.container,
-          {justifyContent: 'center', alignItems: 'center'},
-        ]}>
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
         <Text>Loading...</Text>
       </View>
     );
@@ -130,7 +159,6 @@ const VenueDetailsComponent = ({route}) => {
         barStyle="light-content"
         backgroundColor="#5E3A16"
         translucent={true}
-        hidden={true}
       />
 
       <ScrollView style={styles.content}>
@@ -146,13 +174,12 @@ const VenueDetailsComponent = ({route}) => {
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              style={{overflow: 'visible'}}>
-              {section.data.map(item => (
+              style={{ overflow: 'visible' }}>
+              {section.data.map((item) => (
                 <MenuItem
                   key={item._id}
                   item={item}
                   navigation={navigation}
-                  onAddToCart={handleAddToCart}
                 />
               ))}
             </ScrollView>
@@ -164,12 +191,15 @@ const VenueDetailsComponent = ({route}) => {
         <View style={styles.cart1}>
           <TouchableOpacity
             style={styles.cartCard}
-            onPress={() =>
-              navigation.navigate('checkout', {cartItems, cartTotal})
-            }>
-            <Text style={styles.cartDetails}>{cartItems.length}</Text>
+            onPress={() => {
+              navigation.navigate('checkout', {
+                cartItems,
+                cartTotal,
+              });
+            }}>
+            <Text style={styles.cartDetails}>{cartItems.length} Items</Text>
             <Text style={styles.cartDetails}>View Cart</Text>
-            <Text style={styles.cartDetails}>GHC {cartTotal}</Text>
+            <Text style={styles.cartDetails}>GHC {cartTotal.toFixed(2)}</Text>
           </TouchableOpacity>
         </View>
       ) : (
@@ -205,7 +235,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
   },
-  viewAll: {color: '#4CAF50', fontSize: 14},
+  viewAll: {
+    color: '#4CAF50',
+    fontSize: 14
+  },
   menuItem: {
     width: SCREEN_WIDTH * 0.44,
     marginRight: 10,
@@ -250,7 +283,7 @@ const styles = StyleSheet.create({
     padding: 15,
     width: '100%',
   },
-  cartText: {color: 'white', fontWeight: 'bold', marginLeft: 10},
+  cartText: { color: 'white', fontWeight: 'bold', marginLeft: 10 },
   cart1: {
     flexDirection: 'row',
     justifyContent: 'center',

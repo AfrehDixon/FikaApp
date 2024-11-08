@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, StatusBar, TouchableOpacity, Modal, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, TextInput } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function PaymentMethod() {
@@ -23,13 +23,11 @@ export default function PaymentMethod() {
     ];
 
     const handleSave = () => {
-        // Show OTP input field when Save button is tapped
-        setOtpVisible(true);
+        setOtpVisible(true); // Show OTP input field when Save button is tapped
     };
 
     return (
         <View style={styles.container}>
-            <StatusBar hidden={true} />
             {paymentClients.map((client) => (
                 <TouchableOpacity key={client.id} style={styles.clientContainer}>
                     <Image source={client.image} style={styles.image} />
@@ -51,7 +49,11 @@ export default function PaymentMethod() {
                 transparent={true}
                 onRequestClose={() => setModalVisible(false)}
             >
-                <View style={styles.modalOverlay}>
+                <TouchableOpacity
+                    style={styles.modalOverlay}
+                    activeOpacity={1}
+                    onPress={() => setModalVisible(false)}
+                >
                     <View style={styles.modalContainer}>
                         <Text style={styles.modalTitle}>Add New Payment Method</Text>
 
@@ -61,7 +63,7 @@ export default function PaymentMethod() {
                             items={networkProviders}
                             setOpen={setOpen}
                             setValue={setSelectedNetwork}
-                            setItems={() => {}}
+                            setItems={() => { }}
                             placeholder="Select Network"
                             style={styles.dropdown}
                             dropDownContainerStyle={styles.dropdownList}
@@ -94,7 +96,7 @@ export default function PaymentMethod() {
                             <Text style={styles.cancelButtonText}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </TouchableOpacity>
             </Modal>
         </View>
     );
@@ -206,4 +208,3 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
-

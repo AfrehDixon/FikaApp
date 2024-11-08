@@ -10,7 +10,7 @@ const SplashScreen = () => {
       {/* Centered Logo */}
       <View style={styles.logoContainer}>
         <Image
-          source={require('../assets/image/fika5.png')}
+          source={require('../assets/image/daddylogo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
@@ -19,7 +19,7 @@ const SplashScreen = () => {
       {/* Responsive Drinks at the bottom */}
       <View style={[styles.drinksContainer, { width: screenWidth }]}>
         <Image
-          source={require('../assets/image/splashImage.png')}
+          source={require('../assets/image/daddybackground.png')}
           style={[
             styles.drinksImage,
             { width: screenWidth * 1.0, height: screenHeight * 0.25 },

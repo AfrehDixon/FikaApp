@@ -30,7 +30,7 @@ export function HomeScreen() {
         },
       });
       const data = await response.json();
-      console.log("Fetched data:", data); // Log the fetched data for debugging purposes
+      // console.log("Fetched data:", data); // Log the fetched data for debugging purposes
       if (data.venues) {
         setVenues(data.venues); // Set venues from the response
       } else {
@@ -63,10 +63,10 @@ export function HomeScreen() {
               marginTop: 30,
             }}>
             <Image
-              source={require('../assets/image/fika5.png')}
+              source={require('../assets/image/daddylogo.png')}
               style={{
-                width: 80,
-                height: 80,
+                width: 112,
+                height: 112,
                 borderRadius: 45,
                 borderColor: 'white',
                 alignSelf: 'center',
@@ -77,7 +77,7 @@ export function HomeScreen() {
 
           <View style={styles.banner}>
             <Image
-              source={require('../assets/image/fikabanner.png')}
+              source={require('../assets/image/daddybanner.jpeg')}
               style={styles.bannerLogo}
             />
             <View style={styles.bannerText}>
@@ -110,7 +110,7 @@ export function HomeScreen() {
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
             <Icon name="qr-code-outline" size={44} color="#FFF" />
-            <Image style={styles.homeIcon} source={require('../assets/image/fika4.png')} />
+            <Image style={styles.homeIcon} source={require('../assets/image/lcup.png')} />
           </TouchableOpacity>
         </View>
 
@@ -159,10 +159,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   bannerLogo: {
-    height: 200,
+    height: 221,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
     width: '100%',
+    resizeMode: 'cover',
   },
   headerImage: {
     width: 400,

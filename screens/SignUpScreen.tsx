@@ -83,7 +83,7 @@ const SignUpScreen = ({navigation}) => {
       {/* Logo */}
       <View style={[styles.logoContainer, {height: verticalScale(120)}]}>
         <Image
-          source={require('../assets/image/fika5.png')}
+          source={require('../assets/image/daddylogo.png')}
           style={[styles.logo]}
           resizeMode="contain"
         />
@@ -279,7 +279,7 @@ const SignUpScreen = ({navigation}) => {
       {/* Bottom Background Image */}
       <View style={[styles.drinksContainer, {width: SCREEN_WIDTH}]}>
         <ImageBackground
-          source={require('../assets/image/splashImage.png')}
+          source={require('../assets/image/daddybackground.png')}
           style={[
             styles.drinksImage,
             {

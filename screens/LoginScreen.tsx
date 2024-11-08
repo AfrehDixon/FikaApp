@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -15,9 +15,9 @@ import CheckBox from '@react-native-community/checkbox'; // Updated import
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation }) => {
   const [loading, setloading] = useState(false);
-  const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
+  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   // const [rememberMe, setRememberMe] = useState(false);
@@ -26,7 +26,7 @@ const LoginScreen = ({navigation}) => {
   const signin = async () => {
     setloading(true);
     if (!email && !password) {
-       Toast.show({
+      Toast.show({
         type: 'error',
         position: 'top',
         text1: 'Please fill in all fields',
@@ -75,29 +75,29 @@ const LoginScreen = ({navigation}) => {
       console.log(userDetails);
 
       await AsyncStorage.setItem('token', token);
-       await AsyncStorage.setItem('userDetails', JSON.stringify(userDetails));
+      await AsyncStorage.setItem('userDetails', JSON.stringify(userDetails));
 
-      
-      
+
+
       // if (response.ok) {
-        // Alert.alert('signup succesful');
-        // Handle successful signup (e.g., navigate to another screen)
+      // Alert.alert('signup succesful');
+      // Handle successful signup (e.g., navigate to another screen)
       console.log('Signup successful', data);
-       Toast.show({
+      Toast.show({
         type: 'success',
         position: 'top',
         text1: 'Login Successful',
         autoHide: true,
       });
 
-        navigation.navigate('Main');
-        setloading(false);
+      navigation.navigate('Main');
+      setloading(false);
       // } else {
-        // Handle errors (e.g., show an error message)
-        // console.error('Signup failed', data);
+      // Handle errors (e.g., show an error message)
+      // console.error('Signup failed', data);
       // }
     } catch (error) {
-       Toast.show({
+      Toast.show({
         type: 'error',
         position: 'top',
         text1: 'Password or Email is incorrect',
@@ -115,7 +115,7 @@ const LoginScreen = ({navigation}) => {
       {/* Logo */}
       <View style={styles.logoContainer}>
         <Image
-          source={require('../assets/image/fika5.png')}
+          source={require('../assets/image/daddylogo.png')}
           style={styles.logo}
         />
       </View>
@@ -132,7 +132,7 @@ const LoginScreen = ({navigation}) => {
             placeholder="chephas@gmail.om"
             value={email}
             onChangeText={setemail}
-            // keyboardType="phone-pad"
+          // keyboardType="phone-pad"
           />
         </View>
 
@@ -179,9 +179,9 @@ const LoginScreen = ({navigation}) => {
 
         <TouchableOpacity style={styles.loginButton} onPress={() => signin()}>
           {loading ? (
-            <View style={{display: "flex ",flexDirection: 'row'}}>
+            <View style={{ display: "flex ", flexDirection: 'row' }}>
               <ActivityIndicator />
-              <Text style={{color: 'white' , marginLeft: 5}}>Loading ...</Text>
+              <Text style={{ color: 'white', marginLeft: 5 }}>Loading ...</Text>
             </View>
           ) : (
             <Text style={styles.loginButtonText}>Log In</Text>
@@ -198,12 +198,15 @@ const LoginScreen = ({navigation}) => {
       </View>
 
       {/* Drinks at the Bottom */}
-      <View style={[styles.drinksContainer, {width: screenWidth}]}>
+      <View style={[styles.drinksContainer, { width: screenWidth }]}>
         <Image
-          source={require('../assets/image/splashImage.png')}
+          source={require('../assets/image/daddybackground.png')}
           style={[
             styles.drinksImage,
-            {width: screenWidth * 1.0, height: screenHeight * 0.25},
+            {
+              width: screenWidth * 1.0,
+              height: screenHeight * 0.25,
+            },
           ]}
           resizeMode="contain"
         />
@@ -235,7 +238,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
@@ -317,7 +320,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   drinksContainer: {
-    paddingBottom: -20,
+    paddingBottom: -5,
     justifyContent: 'center',
     alignItems: 'center',
   },

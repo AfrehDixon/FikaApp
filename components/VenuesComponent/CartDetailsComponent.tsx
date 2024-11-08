@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CartDetailsComponent = ({ route, navigation }) => {
-  const { item, sizes, onAddToCart } = route.params;  // Retrieve sizes
+  const { item, sizes } = route.params;
   const [selectedSizes, setSelectedSizes] = useState([]);
 
   const toggleSizeSelection = (size) => {
@@ -15,12 +16,37 @@ const CartDetailsComponent = ({ route, navigation }) => {
     });
   };
 
-  const handleAddToCart = () => {
-    const selectedSizesData = selectedSizes.map(sizeName =>
-      sizes.find(size => size.name === sizeName)
-    );
-    onAddToCart(item, selectedSizesData);
-    navigation.goBack();
+  const handleAddToCart = async () => {
+    try {
+      // Get existing cart items
+      const existingCartString = await AsyncStorage.getItem('cartItems');
+      const existingCart = existingCartString ? JSON.parse(existingCartString) : [];
+
+      // Create new cart items
+      const newCartItems = selectedSizes.map((sizeName) => {
+        const sizeData = sizes.find(size => size.name === sizeName);
+        return {
+          _id: `${item.id}-${sizeName}-${Date.now()}`, // Ensure unique ID
+          name: item.name,
+          description: item.description,
+          size: sizeName,
+          price: sizeData.price,
+          quantity: 1,
+          originalItemId: item.id,
+        };
+      });
+
+      // Combine existing and new items
+      const updatedCart = [...existingCart, ...newCartItems];
+
+      // Save to AsyncStorage
+      await AsyncStorage.setItem('cartItems', JSON.stringify(updatedCart));
+
+      // Navigate back
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    }
   };
 
   return (
@@ -32,19 +58,19 @@ const CartDetailsComponent = ({ route, navigation }) => {
       </TouchableOpacity>
 
       <Image
-        source={require('../../assets/image/coffee1.jpeg')}
+        source={require('../../assets/image/cup2.jpeg')}
         style={styles.productImage}
       />
 
       <View style={styles.contentContainer}>
-        <Text style={styles.productTitle}>LOVE COCOA COFFEE CREAM LATTE</Text>
+        <Text style={styles.productTitle}>{item.name}</Text>
 
         <Text style={styles.sizeOptionTitle}>Size Option</Text>
 
         <View style={styles.sizeOptionsContainer}>
           {sizes.map((size) => (
             <TouchableOpacity
-              key={size.name}
+              key={`${size.name}-${size.price}`}
               style={[
                 styles.sizeOption,
                 selectedSizes.includes(size.name) && styles.selectedSizeOption,
@@ -71,8 +97,12 @@ const CartDetailsComponent = ({ route, navigation }) => {
             total + (sizes.find(size => size.name === sizeName)?.price || 0), 0)}
         </Text>
         <TouchableOpacity
-          style={styles.addToCartButton}
+          style={[
+            styles.addToCartButton,
+            selectedSizes.length === 0 && { opacity: 0.7 }
+          ]}
           onPress={handleAddToCart}
+          disabled={selectedSizes.length === 0}
         >
           <Text style={styles.addToCartButtonText}>Add to cart</Text>
         </TouchableOpacity>
@@ -110,6 +140,7 @@ const styles = StyleSheet.create({
     marginTop: 430,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    height: 'auto',
   },
   productTitle: {
     fontSize: 24,
@@ -142,6 +173,7 @@ const styles = StyleSheet.create({
   },
   selectedSizeOption: {
     backgroundColor: '#F0F0F0',
+    borderColor: '#4A2B20 !important',
   },
   checkBox: {
     width: 20,
@@ -196,6 +228,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  disabledButton: {
+    opacity: 0.6,
   },
 });
 

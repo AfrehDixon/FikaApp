@@ -49,7 +49,7 @@ const OtpScreen = ({ navigation }) => {
             <StatusBar backgroundColor="#5E3A16" barStyle="light-content" />
             <View style={[styles.content, { paddingTop: getResponsiveSize(40) }]}>
                 <Image
-                    source={require('../assets/image/fika5.png')}
+                    source={require('../assets/image/daddylogo.png')}
                     style={[styles.logo, {
                         width: getResponsiveSize(113),
                         height: getResponsiveSize(112),
@@ -116,7 +116,7 @@ const OtpScreen = ({ navigation }) => {
 
                 <View style={styles.drinksContainer}>
                     <Image
-                        source={require('../assets/image/splashImage.png')}
+                        source={require('../assets/image/daddybackground.png')}
                         style={[styles.drinksImage, {
                             width: screenWidth,
                             height: screenHeight * 0.25,
