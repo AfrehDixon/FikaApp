@@ -26,7 +26,7 @@ const LoginScreen = ({ navigation }) => {
   const signin = async () => {
     setloading(true);
     if (!email && !password) {
-       Toast.show({
+      Toast.show({
         type: 'error',
         position: 'top',
         text1: 'Please fill in all fields',
@@ -77,27 +77,27 @@ const LoginScreen = ({ navigation }) => {
       await AsyncStorage.setItem('token', token);
       await AsyncStorage.setItem('userDetails', JSON.stringify(userDetails));
 
-      
-      
+
+
       // if (response.ok) {
-        // Alert.alert('signup succesful');
-        // Handle successful signup (e.g., navigate to another screen)
+      // Alert.alert('signup succesful');
+      // Handle successful signup (e.g., navigate to another screen)
       console.log('Signup successful', data);
-       Toast.show({
+      Toast.show({
         type: 'success',
         position: 'top',
         text1: 'Login Successful',
         autoHide: true,
       });
 
-        navigation.navigate('Main');
-        setloading(false);
+      navigation.navigate('Main');
+      setloading(false);
       // } else {
-        // Handle errors (e.g., show an error message)
-        // console.error('Signup failed', data);
+      // Handle errors (e.g., show an error message)
+      // console.error('Signup failed', data);
       // }
     } catch (error) {
-       Toast.show({
+      Toast.show({
         type: 'error',
         position: 'top',
         text1: 'Password or Email is incorrect',
@@ -179,9 +179,9 @@ const LoginScreen = ({ navigation }) => {
 
         <TouchableOpacity style={styles.loginButton} onPress={() => signin()}>
           {loading ? (
-            <View style={{display: "flex ",flexDirection: 'row'}}>
+            <View style={{ display: "flex ", flexDirection: 'row' }}>
               <ActivityIndicator />
-              <Text style={{color: 'white' , marginLeft: 5}}>Loading ...</Text>
+              <Text style={{ color: 'white', marginLeft: 5 }}>Loading ...</Text>
             </View>
           ) : (
             <Text style={styles.loginButtonText}>Log In</Text>

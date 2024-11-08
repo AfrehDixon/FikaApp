@@ -1,164 +1,229 @@
-import React from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React, { useState } from 'react';
+import { View, Text, FlatList, TextInput, TouchableOpacity, StyleSheet, Dimensions, ScrollView, Modal, Image } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useRoute } from '@react-navigation/native';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-const MenuItem = ({ title, description, imageSource }) => (
-    <View style={styles.menuItem}>
-        <Image source={imageSource} style={styles.menuItemImage} />
-        <View style={styles.menuItemInfo}>
-            <Text style={styles.menuItemTitle}>{title}</Text>
-            <Text style={styles.menuItemDescription}>{description}</Text>
+const ViewCartComponent = ( navigation ) => {
+    const route = useRoute();
+    const { cartItems = [], cartTotal = 0 } = route.params || {};
+
+    const renderItem = ({ item, index }) => (
+        <View style={styles.cartItem}>
+            <Text style={styles.cartItemName}>{index + 1}. {item.name} ({item.size})</Text>
+            <View style={styles.priceRow}>
+                <Text style={styles.cartItemDescription}>{item.description}</Text>
+                <Text style={styles.cartItemPrice}>GHC {item.price.toFixed(2)}</Text>
+            </View>
         </View>
-        <TouchableOpacity style={styles.addButton}>
-        <Image source={require('../../assets/image/lock.png')}/>
-        </TouchableOpacity>
-    </View>
-);
+    );
 
-const ViewCartComponent = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <ScrollView style={styles.content}>
-                <View style={styles.section}>
-                    <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>COFFEE SERIES</Text>
-                        <TouchableOpacity>
-                            <Text style={styles.viewAll}>View all</Text>
-                        </TouchableOpacity>
+            <ScrollView style={styles.scrollView}>
+                <View style={styles.Overview}>
+                    <View style={styles.section}>
+                        <View style={styles.sectionTitle}>
+                            <MaterialIcons name="redeem" size={18} color="#33AC48" />
+                            <Text style={{ color: '#33AC48' }}>Cart items</Text>
+                        </View>
+                        <FlatList
+                            data={cartItems}
+                            renderItem={renderItem}
+                            keyExtractor={(item) => item._id}
+                        />
+                        <Text style={styles.totalPrice}>TOTAL: GHC {cartTotal.toFixed(2)}</Text>
                     </View>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                        <MenuItem
-                            title="Love Cocoa Coffee Cream Latte"
-                            description="Fresh coconut milk, layered with whipped coffee"
-                            imageSource={require('../../assets/image/coffee1.jpeg')}
-                        />
-                        <MenuItem
-                            title="Fika Vanilla Americano"
-                            description="Whipped coffee, vanilla, brown sugar syrup"
-                            imageSource={require('../../assets/image/fika3.png')}
-                        />
-                    </ScrollView>
-                </View>
-
-                <View style={styles.section}>
-                    <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>SIGNATURE</Text>
-                        <TouchableOpacity>
-                            <Text style={styles.viewAll}>View all</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                        <MenuItem
-                            title="Chocolatev"
-                            description="Rich chocolate with a touch of espresso"
-                            imageSource={require('../../assets/image/fikashelf2.png')}
-                        />
-                        <MenuItem
-                            title="Caramel Lotus"
-                            description="Caramel and lotus biscuit latte"
-                            imageSource={require('../../assets/image/fikashelf3.png')}
-                        />
-                    </ScrollView>
                 </View>
             </ScrollView>
-
-            <View style={styles.cart}>
-                <TouchableOpacity style={styles.cartCard} onPress={() => navigation.navigate('checkout')}>
-                    <Text style={styles.cartDetails}>2</Text>
-                    <Text style={styles.cartDetails}>View Cart</Text>
-                    <Text style={styles.cartDetails}>GHC 30</Text>
+            <View style={styles.fixedButtonContainer}>
+                <TouchableOpacity style={styles.payButton} onPress={() => navigation.navigate('checkout', {cartItems, cartTotal})}>
+                    <Text style={styles.payButtonText}>Checkout</Text>
                 </TouchableOpacity>
             </View>
+
         </View>
     );
 };
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#f5f5f5',
     },
-    content: {
-        flex: 1,
+    header: {
+        backgroundColor: '#704321', // Dark brown
+        padding: 15,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    headerTitle: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginLeft: 10,
+    },
+    Overview: {
+        paddingHorizontal: 10,
     },
     section: {
+        backgroundColor: '#FFFFFF',
+        padding: 10,
         marginVertical: 10,
-    },
-    sectionHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        marginBottom: 10,
+        borderRadius: 10,
+        marginTop: 20,
     },
     sectionTitle: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: 'black',
-    },
-    viewAll: {
-        color: '#4CAF50',
-        fontSize: 14,
-    },
-    menuItem: {
-        width: SCREEN_WIDTH * 0.43,
-        marginLeft: 20,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        overflow: 'hidden',
-    },
-    menuItemImage: {
-        width: '100%',
-        height: SCREEN_WIDTH * 0.5,
-        resizeMode: 'cover',
-    },
-    menuItemInfo: {
-        padding: 10,
-    },
-    menuItemTitle: {
-        fontSize: 14,
-        fontWeight: 'bold',
-        color: 'black',
-        marginBottom: 5,
-    },
-    menuItemDescription: {
-        fontSize: 12,
-        color: '#626262',
-    },
-    addButton: {
-        position: 'absolute',
-        right: 10,
-        bottom: 10,
-        backgroundColor: 'white',
-        borderRadius: 15,
-        width: 30,
-        height: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    cart: {
+        color: '#704321', // Brownish color for titles
+        marginBottom: 10,
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#6B3E26',
-        padding: 15,
+        gap: 5,
     },
-    cartCard: {
-        width: SCREEN_WIDTH * 0.9,
-        maxWidth: 350,
-        height: 58,
-        backgroundColor: '#f0f0f0',
-        borderRadius: 10,
+    cartItem: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        marginBottom: 10,
+    },
+    cartItemName: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#000',
+    },
+    priceRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: 15,
+        marginTop: 5,
     },
-    cartDetails: {
+    cartItemDescription: {
+        flex: 1,
+        fontSize: 12,
+        color: '#666',
+        marginTop: 5,
+        marginLeft: 15,
+    },
+    cartItemPrice: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#421556',
+        textAlign: 'right',
+    },
+    totalPrice: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#33AC48',
+        textAlign: 'right',
+        marginTop: 10,
+    },
+    location: {
+        fontSize: 16,
+        color: '#1E1E1E',
+        marginBottom: 10,
+    },
+    input: {
+        backgroundColor: '#eaeaea',
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 15,
+        fontSize: 16,
+        color: '#000',
+    },
+    pickupOption: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    pickupText: {
+        marginLeft: 10,
+        fontSize: 16,
+        color: '#000',
+    },
+    scrollView: {
+        flex: 1,
+        paddingBottom: 80, // Add padding to account for the fixed button
+    },
+    fixedButtonContainer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: 'white',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderTopWidth: 1,
+        borderTopColor: '#e0e0e0',
+    },
+    payButton: {
+        backgroundColor: '#704321',
+        padding: 15,
+        borderRadius: 5,
+        alignItems: 'center',
+    },
+    payButtonText: {
+        color: '#fff',
         fontSize: 18,
-        color: '#6B3E26',
+        fontWeight: 'bold',
+    },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'flex-end',
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        padding: 20,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 20,
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
+    paymentImage: {
+        width: 60,
+        height: 60,
+        resizeMode: 'contain',
+        marginHorizontal: 10,
+    },
+    paymentOption: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 10,
+    },
+    paymentText: {
+        marginLeft: 10,
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#1E1E1E',
+    },
+    horizontalLine: {
+        width: '100%',
+        height: 1,
+        backgroundColor: '#D3D3D3',
+        marginVertical: 5,
+    },
+    closeButton: {
+        marginTop: 20,
+        padding: 15,
+        backgroundColor: '#6B4226',
+        alignItems: 'center',
+        borderRadius: 10,
+    },
+    closeButtonText: {
+        color: '#fff',
+        fontSize: 16,
     },
 });
 

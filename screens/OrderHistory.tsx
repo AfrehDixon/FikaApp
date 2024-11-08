@@ -47,7 +47,7 @@ const OrderHistory = () => {
 
     const renderItem = ({ item }) => (
         <View style={styles.card}>
-            <StatusBar hidden={true} />
+            {/* <StatusBar hidden={true} /> */}
             <View style={styles.iconContainer}>
                 <Image source={item.icon} style={styles.icon} />
             </View>

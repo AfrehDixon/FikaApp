@@ -56,8 +56,8 @@ const MainNavigator = () => {
                 options={{
                     headerTitle: () => (
                         <View>
-                            <Text style={styles.headerTitle}>THE FIKA TEAHOUSE - EAST LEGON</Text>
-                            <Text style={styles.headerSubtitle}>12 Tripoli Street, Accra</Text>
+                            <Text style={styles.headerTitle}>DADDY BOBA - EAST LEGON</Text>
+                            <Text style={styles.headerSubtitle}>Jungle Avenue</Text>
                         </View>
                     ),
                     headerStyle: { backgroundColor: '#5E3A16' },
@@ -68,24 +68,19 @@ const MainNavigator = () => {
                 component={CartDetailsComponent}
                 options={{ headerShown: false }}
             />
+            {/* <Stack.Screen
+                name="ViewCartComponent"
+                component={ViewCartComponent}
+                options={{
+                    title: 'YOUR CART DETAILS',
+                    headerStyle: { backgroundColor: '#5E3A16' },
+                }}
+            /> */}
             <Stack.Screen
                 name="checkout"
                 component={CheckoutComponent}
                 options={{
                     title: 'CHECKOUT',
-                    headerStyle: { backgroundColor: '#5E3A16' },
-                }}
-            />
-            <Stack.Screen
-                name="ViewCart"
-                component={ViewCartComponent}
-                options={{
-                    headerTitle: () => (
-                        <View>
-                            <Text style={styles.headerTitle}>THE FIKA TEAHOUSE - EAST LEGON</Text>
-                            <Text style={styles.headerSubtitle}>12 Tripoli Street, Accra</Text>
-                        </View>
-                    ),
                     headerStyle: { backgroundColor: '#5E3A16' },
                 }}
             />
